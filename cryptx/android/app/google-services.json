@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "631676281267",
+    "project_id": "cryptx-fa35c",
+    "storage_bucket": "cryptx-fa35c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631676281267:android:d7c79b72dc6c9ec923abc6",
+        "android_client_info": {
+          "package_name": "com.example.cryptx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631676281267-78c50uro1cibu9f3727u3rbrjvq8el9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXtZKIpJPWqJ0xAEYV2cNkZ_i9_Ht7BeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631676281267-78c50uro1cibu9f3727u3rbrjvq8el9q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "631676281267-b9pds129sqn24ulp87oh7ruhgcet2tm3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.cryptx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
