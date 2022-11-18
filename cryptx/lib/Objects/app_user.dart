@@ -9,15 +9,15 @@ Add Username for users, display username on card.
 make registration and shared preferences.
  */
 class AppUser {
-  final String? publicKey;
-  final String? privateKey;
+  String? publicKey;
+  String? privateKey;
   final String? email;
+  final String? username;
   String? hash;
   double balance = 0;
 
   AppUser(
-    this.publicKey,
-    this.privateKey,
+    this.username,
     this.email,
     String password,
   ) {
@@ -36,6 +36,7 @@ class AppUser {
 
   Map<String, dynamic> toFirestore() {
     return {
+      "Username": username,
       "Email": email,
       "Hash": hash,
       "PublicKey": publicKey,
@@ -49,10 +50,33 @@ class AppUser {
   ) {
     final data = snapshot.data();
     return AppUser(
-      null,
-      null,
+      data?["Username"],
       data?["Email"],
       data?["Hash"],
     );
+  }
+
+  factory AppUser.fromJson(Map<String, dynamic> jsonData) {
+    return AppUser(
+      jsonData["Username"],
+      jsonData["Email"],
+      jsonData["Hash"],
+    );
+  }
+
+  static Map<String, dynamic> toMap(AppUser model) => <String, dynamic>{
+        'Email': model.email,
+        'Username': model.username,
+        'Hash': model.hash,
+      };
+
+  static String serialize(AppUser model) => json.encode(AppUser.toMap(model));
+
+  static AppUser? deserialize(String? json) {
+    if (json != null) {
+      AppUser.fromJson(jsonDecode(json));
+    } else {
+      return null;
+    }
   }
 }

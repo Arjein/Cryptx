@@ -1,10 +1,14 @@
+import 'package:cryptx/Objects/app_user.dart';
+import 'package:cryptx/Pages/Settings/settings_page.dart';
 import 'package:cryptx/Pages/Wallet/app_wallet.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
+    required this.AppUser,
   }) : super(key: key);
+  final AppUser;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,7 +25,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("C R Y P T X")),
+      appBar: AppBar(
+        title: const Text("C R Y P T X"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: ((context) => const Settings_Screen()),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.settings))
+        ],
+      ),
       body: Center(
         child: IndexedStack(
           index: _index,

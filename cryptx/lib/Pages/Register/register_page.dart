@@ -1,8 +1,10 @@
 import 'package:cryptx/Entry_Widgets/entry_text_form_field.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_validator.dart';
+import 'package:cryptx/Firebase/auth.dart';
 import 'package:cryptx/Firebase/db.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Pages/Home/home_page.dart';
+import 'package:cryptx/Pages/Login/login_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,10 +17,11 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _registerFormKey = GlobalKey<FormState>();
   String? _email;
-
+  String? _username;
   String? _password;
 
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
   @override
@@ -30,6 +33,9 @@ class _RegisterPageState extends State<RegisterPage> {
     _passwordController.addListener(() {
       _password = _passwordController.text;
     });
+    _usernameController.addListener(() {
+      _username = _usernameController.text;
+    });
     super.initState();
   }
 
@@ -38,39 +44,50 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Register")),
       body: SingleChildScrollView(
-        child: Form(
-          key: _registerFormKey,
-          child: Column(
-            children: [
-              AppTextFormField(
-                  textHolder: "E-mail",
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Form(
+            key: _registerFormKey,
+            child: Column(
+              children: [
+                AppTextFormField(
+                  textHolder: "Username",
                   obscure: false,
-                  controller: _emailController,
+                  controller: _usernameController,
                   borderRadius: 20,
-                  icon: const Icon(Icons.person)),
-              AppTextFormField(
-                textHolder: "Password",
-                obscure: true,
-                controller: _passwordController,
-                borderRadius: 20,
-                icon: const Icon(Icons.lock_outline),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  debugPrint("asdad");
-                  if (validateForm(_registerFormKey, context)) {
-                    AppUser newUser = AppUser(null, null, _email!, _password!);
-                    registerAppUserDB(newUser);
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => const HomePage()),
-                      ),
-                    );
-                  }
-                },
-                child: const Text("Register"),
-              ),
-            ],
+                  icon: const Icon(Icons.face),
+                ),
+                AppTextFormField(
+                    textHolder: "E-mail",
+                    obscure: false,
+                    controller: _emailController,
+                    borderRadius: 20,
+                    icon: const Icon(Icons.person)),
+                AppTextFormField(
+                  textHolder: "Password",
+                  obscure: true,
+                  controller: _passwordController,
+                  borderRadius: 20,
+                  icon: const Icon(Icons.lock_outline),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (validateForm(_registerFormKey, context)) {
+                      AppUser newUser =
+                          AppUser(_username!, _email!, _password!);
+                      if (await Register_User(newUser)) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: ((context) => Login_Screen()),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  child: const Text("Register"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
