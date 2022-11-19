@@ -1,13 +1,18 @@
 import 'package:cryptx/Colors/app_colors.dart';
+import 'package:cryptx/Objects/app_user.dart';
 import 'package:flutter/material.dart';
 
 class WalletWidget extends StatelessWidget {
   const WalletWidget({
     Key? key,
+    required this.appUser,
   }) : super(key: key);
+  final AppUser appUser;
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("THIS IS WALLET WIDGET");
+    debugPrint(appUser.toString());
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -39,7 +44,7 @@ class WalletWidget extends StatelessWidget {
                     padding: const EdgeInsets.all(12.0),
                     child: Text(
                       style: Theme.of(context).textTheme.titleMedium,
-                      "Mert Arcan",
+                      appUser.username!,
                     ),
                   ),
                 ),
@@ -55,7 +60,7 @@ class WalletWidget extends StatelessWidget {
                     Container(
                       child: Text(
                           style: Theme.of(context).textTheme.titleSmall,
-                          "50TL"),
+                          appUser.balance.toString()),
                     ),
                     Container(
                       child: Text(
@@ -73,7 +78,7 @@ class WalletWidget extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                   style: Theme.of(context).textTheme.caption,
-                  "0x9183ehnuı1d91hx93hfh1oueofjq89980dhu"),
+                  appUser.publicKey == null ? "" : appUser.publicKey!),
             )
           ],
         ),

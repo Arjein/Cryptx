@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
-    required this.AppUser,
+    required this.appUser,
   }) : super(key: key);
-  final AppUser;
+  final AppUser appUser;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -16,11 +16,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _index = 0;
+  late var _pages;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _pages = [
+      const Text("INDEX 0: Home"),
+      AppWallet(appUser: widget.appUser),
+    ];
+    super.initState();
+  }
 
-  static const List<Widget> _pages = <Widget>[
-    Text("INDEX 0: Home"),
-    AppWallet(),
-  ];
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _pages.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

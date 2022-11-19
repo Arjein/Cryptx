@@ -75,11 +75,17 @@ class _login_formState extends State<login_form> {
                       _emailController.text, _passwordController.text)) {
                     // TODO
                     debugPrint("User Authenticated");
-                    AppUser user = await readUserfromDB(_emailController.text);
-                    if (await UserSecureStorage.setUser(
-                        user, _passwordController.text)) {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/home', (Route<dynamic> route) => false);
+                    AppUser? user = await readUserfromDB(_emailController.text);
+
+                    if (user != null &&
+                        await UserSecureStorage.setUser(
+                            user, _passwordController.text)) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => HomePage(
+                                    appUser: user,
+                                  )),
+                          (Route<dynamic> route) => false);
                     }
                   }
                 }

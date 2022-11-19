@@ -3,6 +3,7 @@ import 'package:cryptx/Pages/Login/login_page.dart';
 import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'Objects/app_user.dart';
 import 'firebase_options.dart';
 import 'Pages/Home/home_page.dart';
 import 'Themes/dark_theme.dart';
@@ -15,15 +16,24 @@ void main() async {
   var email = await UserSecureStorage.getEmail();
   var password = await UserSecureStorage.getPassword();
   bool isLogged = await Auth_User(email!, password);
-
-  runApp(MyApp(
-    isLogged: isLogged,
-  ));
+  AppUser? usr;
+  if (isLogged) {
+    usr = await UserSecureStorage.getUser();
+    runApp(MyApp(
+      isLogged: isLogged,
+      user: usr!,
+    ));
+  } else {
+    runApp(MyApp(
+      isLogged: isLogged,
+    ));
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.isLogged});
-  final isLogged;
+  MyApp({super.key, required this.isLogged, this.user});
+  final bool isLogged;
+  AppUser? user;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,15 +41,10 @@ class MyApp extends StatelessWidget {
       title: 'Cryptx',
       darkTheme: appDarkTheme,
       routes: {
-        '/home': (context) => HomePage(AppUser: UserSecureStorage.getUser()),
+        '/home': (context) => HomePage(appUser: user!),
         '/login': (context) => Login_Screen(),
       },
       initialRoute: isLogged ? '/home' : '/login',
-/*
-      home: isLogged
-          ? HomePage(AppUser: UserSecureStorage.getUser())
-          : Login_Screen(),
-          */
     );
   }
 }

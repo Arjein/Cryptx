@@ -23,7 +23,9 @@ class AppUser {
   ) {
     this.hash = hashPassword(password);
   }
-
+  @override
+  String toString() =>
+      "Username: $username\nEmail: $email\nPassword(Hash): $hash";
   bool addBalance(double cash) {
     this.balance += cash;
     return true;
@@ -39,8 +41,6 @@ class AppUser {
       "Username": username,
       "Email": email,
       "Hash": hash,
-      "PublicKey": publicKey,
-      "PrivateKey": privateKey,
     };
   }
 
@@ -74,7 +74,7 @@ class AppUser {
 
   static AppUser? deserialize(String? json) {
     if (json != null) {
-      AppUser.fromJson(jsonDecode(json));
+      return AppUser.fromJson(jsonDecode(json));
     } else {
       return null;
     }
