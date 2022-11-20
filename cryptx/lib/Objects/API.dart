@@ -1,10 +1,9 @@
-import 'dart:async';
 import 'dart:convert';
-import 'package:cryptx/Objects/coin.dart';
-import 'package:flutter/material.dart';
+
+import 'coin.dart';
 import 'package:http/http.dart' as http;
 
-class DataService {
+class API {
   Future<List<Coin>> fetch_coin_data() async {
     List<Coin> _coinList = <Coin>[];
     final resp = await http.get(Uri.parse(
@@ -16,7 +15,6 @@ class DataService {
       for (dynamic coin in decoded) {
         _coinList.add(Coin.fromJson(coin));
       }
-
       return _coinList;
     } else {
       // If that call was not successful, throw an error.

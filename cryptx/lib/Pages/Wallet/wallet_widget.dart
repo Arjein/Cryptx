@@ -11,8 +11,6 @@ class WalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("THIS IS WALLET WIDGET");
-    debugPrint(appUser.toString());
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),

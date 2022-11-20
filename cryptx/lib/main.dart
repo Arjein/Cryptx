@@ -3,6 +3,7 @@ import 'package:cryptx/Pages/Login/login_page.dart';
 import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'Objects/app_user.dart';
 import 'firebase_options.dart';
 import 'Pages/Home/home_page.dart';
@@ -19,13 +20,17 @@ void main() async {
   AppUser? usr;
   if (isLogged) {
     usr = await UserSecureStorage.getUser();
-    runApp(MyApp(
-      isLogged: isLogged,
-      user: usr!,
+    runApp(ProviderScope(
+      child: MyApp(
+        isLogged: isLogged,
+        user: usr!,
+      ),
     ));
   } else {
-    runApp(MyApp(
-      isLogged: isLogged,
+    runApp(ProviderScope(
+      child: MyApp(
+        isLogged: isLogged,
+      ),
     ));
   }
 }
