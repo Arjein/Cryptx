@@ -4,15 +4,16 @@ import 'package:cryptx/Pages/Market/coin_list.dart';
 import 'package:flutter/material.dart';
 
 class CoinListPage extends StatelessWidget {
-  const CoinListPage({super.key});
-
+  CoinListPage({super.key, required this.coinList});
+  List<Coin>? coinList;
   @override
   Widget build(BuildContext context) {
+    debugPrint("Market Widget");
     return Scaffold(
       appBar: AppBar(
-        title: Text("C R Y P T X"),
+        title: const Text("C R Y P T X"),
       ),
-      body: CoinList(),
+      body: CoinList(coinList: coinList),
     );
   }
 }
