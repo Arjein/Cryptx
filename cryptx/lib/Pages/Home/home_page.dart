@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Objects/coin.dart';
-import 'package:cryptx/Objects/coingecko_data_service.dart';
 import 'package:cryptx/Pages/Market/market_page.dart';
 import 'package:cryptx/Pages/Settings/settings_page.dart';
 import 'package:cryptx/Pages/Wallet/app_wallet.dart';
@@ -30,32 +29,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    _pages = [];
+    _pages = [
+      const CoinListPage(),
+      AppWallet(appUser: widget.appUser),
+    ];
     _coinList = [];
-    init();
+
     super.initState();
-  }
-
-  void init() async {
-    _coinList = await DataService().fetch_coin_data();
-    setState(() {
-      _pages = [
-        CoinListPage(coinList: _coinList),
-        AppWallet(appUser: widget.appUser),
-      ];
-    });
-
-    Timer.periodic(const Duration(seconds: 20), (timer) async {
-      List<Coin> tempList = await DataService().fetch_coin_data();
-
-      setState(() {
-        _coinList = tempList;
-        _pages = [
-          CoinListPage(coinList: _coinList),
-          AppWallet(appUser: widget.appUser),
-        ];
-      });
-    });
   }
 
   @override
