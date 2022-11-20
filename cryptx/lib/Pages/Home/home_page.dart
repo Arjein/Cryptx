@@ -1,4 +1,5 @@
 import 'package:cryptx/Objects/app_user.dart';
+import 'package:cryptx/Pages/Market/market_page.dart';
 import 'package:cryptx/Pages/Settings/settings_page.dart';
 import 'package:cryptx/Pages/Wallet/app_wallet.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     _pages = [
-      const Text("INDEX 0: Home"),
+      const CoinListPage(),
       AppWallet(appUser: widget.appUser),
     ];
     super.initState();
@@ -37,20 +38,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("C R Y P T X"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => const Settings_Screen()),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.settings))
-        ],
-      ),
       body: Center(
         child: IndexedStack(
           index: _index,
@@ -60,7 +47,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.monetization_on_outlined),
             label: "Home",
           ),
           BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "Wallet")

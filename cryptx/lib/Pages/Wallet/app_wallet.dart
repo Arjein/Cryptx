@@ -2,6 +2,7 @@
 
 import 'package:cryptx/Colors/app_colors.dart';
 import 'package:cryptx/Objects/app_user.dart';
+import 'package:cryptx/Pages/Settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 import 'wallet_widget.dart';
@@ -14,11 +15,21 @@ class AppWallet extends StatelessWidget {
   final AppUser appUser;
   @override
   Widget build(BuildContext context) {
-    debugPrint("THIS IS APPWALLET");
-    debugPrint(appUser.toString());
     return SafeArea(
       child: Scaffold(
-        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: ((context) => const Settings_Screen()),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.settings))
+          ],
+        ),
         body: Container(
           margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           child: Column(
