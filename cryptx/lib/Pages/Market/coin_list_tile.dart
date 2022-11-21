@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CoinListTile extends ConsumerWidget {
   const CoinListTile({super.key, required this.coin});
   final Coin coin;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
@@ -29,7 +30,7 @@ class CoinListTile extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(coin.name),
-              Text("${coin.current_price} \$"),
+              Text(coin.current_price.toString()),
             ],
           ),
           subtitle: Row(

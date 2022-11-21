@@ -9,6 +9,9 @@ import 'package:web_socket_channel/io.dart';
 final coinProvider = StateProvider<Coin?>(
   (ref) => null,
 );
+final queryProvider = StateProvider<String?>(
+  (ref) => null,
+);
 
 final chartProvider = StateNotifierProvider<ChartNotifier, AsyncValue>((ref) {
   final coin = ref.watch(coinProvider);

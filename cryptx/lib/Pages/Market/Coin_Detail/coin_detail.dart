@@ -16,8 +16,8 @@ class CoinDetail extends StatelessWidget {
       appBar: AppBar(),
       body: Center(
         child: Column(
-          children: [
-            CoinChart() ?? const CircularProgressIndicator(),
+          children: const <Widget>[
+            CoinChart() ?? CircularProgressIndicator(),
           ],
         ),
       ),

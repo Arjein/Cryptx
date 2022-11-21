@@ -6,17 +6,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CoinList extends StatelessWidget {
-  const CoinList({super.key, required this.coinList});
+  const CoinList({super.key, required this.coinList, this.querycoinList});
   final List<Coin>? coinList;
+  final List<Coin>? querycoinList;
+
   @override
   Widget build(BuildContext context) {
     return coinList != null
-        ? ListView.builder(
-            itemCount: coinList!.length,
-            itemBuilder: (context, index) {
-              return CoinListTile(coin: coinList![index]);
-            },
-          )
+        ? querycoinList != null && querycoinList!.isNotEmpty
+            ? ListView.builder(
+                itemCount: querycoinList!.length,
+                prototypeItem: CoinListTile(coin: querycoinList!.first),
+                itemBuilder: (context, index) {
+                  return CoinListTile(
+                    coin: querycoinList![index],
+                  );
+                },
+              )
+            : ListView.builder(
+                itemCount: coinList!.length,
+                prototypeItem: CoinListTile(coin: coinList!.first),
+                itemBuilder: (context, index) {
+                  return CoinListTile(
+                    coin: coinList![index],
+                  );
+                },
+              )
         : const CircularProgressIndicator();
   }
 }

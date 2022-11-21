@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     _pages = [
-      const CoinListPage(),
+      CoinListPage(),
       AppWallet(appUser: widget.appUser),
     ];
     _coinList = [];
