@@ -11,7 +11,7 @@ class API {
   Future<List<Coin>> fetchMarket() async {
     List<Coin> _coinList = <Coin>[];
     final resp = await http.get(Uri.parse(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h"));
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=60&page=1&sparkline=false&price_change_percentage=24h"));
 
     try {
       // If the call to the server was successful, parse the JSON
@@ -26,29 +26,30 @@ class API {
     }
   }
 
-  Future<List<Candle>> fetchGraphBinance(String coinSymbol) async {
+  Future<List<Candle>> fetchChart(String coinId) async {
     try {
       List<Candle> _chartData = <Candle>[];
-      final date = DateTime.now().toUtc();
-      int monthago = DateTime.utc(date.year, date.month - 1, date.day)
-          .millisecondsSinceEpoch;
-      String toUpper = coinSymbol.toUpperCase();
+
       Uri request = Uri.parse(
-          "https://api.binance.com/api/v3/klines?symbol=${toUpper}USDT&interval=1d&startTime=$monthago");
+          "https://api.coingecko.com/api/v3/coins/$coinId/ohlc?vs_currency=usd&days=7");
 
       final resp = await http.get(request);
 
       List<dynamic> decodedResp = json.decode(resp.body);
+      debugPrint(decodedResp[0].toString());
+
       for (dynamic day in decodedResp) {
         _chartData.add(Candle.fromJson(day));
       }
       debugPrint(_chartData[_chartData.length - 1].toString());
       return _chartData;
     } catch (e) {
-      throw Exception("Binance Graph Exception:$e");
+      throw Exception("CoinGecko Graph Exception:$e");
     }
   }
 
-
-  
+  saptrial() async {
+    Uri request = Uri.parse("https://api.binance.com/sapi/v1/margin/allAssets");
+    final resp = await http.get(request);
+  }
 }

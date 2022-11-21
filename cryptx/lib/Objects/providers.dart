@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:cryptx/Objects/API.dart';
 import 'package:cryptx/Objects/coin.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:web_socket_channel/io.dart';
 
 final coinProvider = StateProvider<Coin?>(
   (ref) => null,
@@ -18,7 +22,7 @@ class ChartNotifier extends StateNotifier<AsyncValue> {
 
   Future<void> fetchChart(Coin coin) async {
     try {
-      final data = await API().fetchGraphBinance(coin.symbol);
+      final data = await API().fetchChart(coin.id);
       state = AsyncValue.data(data);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);
@@ -31,7 +35,7 @@ final marketProvider = StateNotifierProvider<MarketNotifier, AsyncValue>(
 
 class MarketNotifier extends StateNotifier<AsyncValue> {
   MarketNotifier() : super(const AsyncValue.loading()) {
-    fetchLoopWithdelay(const Duration(seconds: 20));
+    fetchLoopWithdelay(const Duration(seconds: 10));
   }
 
   Future<void> fetchLoopWithdelay(Duration delay) async {

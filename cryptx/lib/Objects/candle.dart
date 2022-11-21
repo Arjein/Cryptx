@@ -3,7 +3,7 @@ class Candle {
   final num? open;
   final num? high;
   final num? low;
-  final num? close;
+  num? close;
 
   Candle({
     this.dt,
@@ -18,10 +18,10 @@ class Candle {
   factory Candle.fromJson(List<dynamic> jsonData) {
     return Candle(
       dt: DateTime.fromMillisecondsSinceEpoch(jsonData[0]),
-      open: double.parse(jsonData[1]),
-      high: double.parse(jsonData[2]),
-      low: double.parse(jsonData[3]),
-      close: double.parse(jsonData[4]),
+      open: jsonData[1],
+      high: jsonData[2],
+      low: jsonData[3],
+      close: jsonData[4],
     );
   }
 }
