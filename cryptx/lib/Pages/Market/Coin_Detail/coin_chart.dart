@@ -1,17 +1,22 @@
 import 'package:cryptx/Objects/candle.dart';
-import 'package:cryptx/Objects/providers.dart';
+import 'package:cryptx/Providers/chart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class CoinChart extends ConsumerWidget {
-  const CoinChart({super.key});
-
+  const CoinChart({required this.coinSymbol, super.key});
+  final String coinSymbol;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Candle>? _chartData = ref.watch(chartProvider).value ;
+    List<Candle>? _chartData = ref.watch(chartProvider).value;
     return _chartData != null
         ? SfCartesianChart(
+            title: ChartTitle(
+                alignment: ChartAlignment.far,
+                text: coinSymbol != "USDT"
+                    ? "${coinSymbol.toUpperCase()} / USDT"
+                    : "${coinSymbol.toUpperCase()} / USD"),
             series: <CandleSeries>[
               CandleSeries<Candle, DateTime>(
                 dataSource: _chartData,
@@ -22,8 +27,10 @@ class CoinChart extends ConsumerWidget {
                 openValueMapper: (Candle point, index) => point.open,
               ),
             ],
-            primaryXAxis: DateTimeAxis(),
+            primaryXAxis: DateTimeAxis(
+                maximum: _chartData.last.dt!.add(Duration(days: 1))),
+            primaryYAxis: NumericAxis(labelFormat: '\${value}'),
           )
-        : const CircularProgressIndicator();
+        : const Center(child: CircularProgressIndicator());
   }
 }

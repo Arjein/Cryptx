@@ -1,7 +1,7 @@
 import 'package:cryptx/Colors/app_colors.dart';
 import 'package:cryptx/Objects/coin.dart';
-import 'package:cryptx/Objects/providers.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_detail.dart';
+import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +30,7 @@ class CoinListTile extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(coin.name),
-              Text(coin.current_price.toString()),
+              Text("\$${coin.current_price}"),
             ],
           ),
           subtitle: Row(

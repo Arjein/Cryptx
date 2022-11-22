@@ -13,16 +13,22 @@ class CoinList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return coinList != null
-        ? querycoinList != null && querycoinList!.isNotEmpty
-            ? ListView.builder(
-                itemCount: querycoinList!.length,
-                prototypeItem: CoinListTile(coin: querycoinList!.first),
-                itemBuilder: (context, index) {
-                  return CoinListTile(
-                    coin: querycoinList![index],
-                  );
-                },
-              )
+        ? querycoinList != null
+            ? querycoinList!.isNotEmpty
+                ? ListView.builder(
+                    itemCount: querycoinList!.length,
+                    prototypeItem: CoinListTile(coin: querycoinList!.first),
+                    itemBuilder: (context, index) {
+                      return CoinListTile(
+                        coin: querycoinList![index],
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text(
+                    "Nothing found",
+                    style: Theme.of(context).textTheme.headline4,
+                  ))
             : ListView.builder(
                 itemCount: coinList!.length,
                 prototypeItem: CoinListTile(coin: coinList!.first),

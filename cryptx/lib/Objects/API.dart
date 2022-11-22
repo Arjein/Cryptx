@@ -11,7 +11,7 @@ class API {
   Future<List<Coin>> fetchMarket() async {
     List<Coin> _coinList = <Coin>[];
     final resp = await http.get(Uri.parse(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=60&page=1&sparkline=false&price_change_percentage=24h"));
+        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h"));
 
     try {
       // If the call to the server was successful, parse the JSON

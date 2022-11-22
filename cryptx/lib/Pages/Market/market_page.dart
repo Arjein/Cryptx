@@ -1,7 +1,8 @@
 import 'package:cryptx/Colors/app_colors.dart';
 import 'package:cryptx/Objects/coin.dart';
-import 'package:cryptx/Objects/providers.dart';
 import 'package:cryptx/Pages/Market/coin_list.dart';
+import 'package:cryptx/Providers/basic_providers.dart';
+import 'package:cryptx/Providers/market_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
