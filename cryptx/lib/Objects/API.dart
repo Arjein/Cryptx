@@ -8,20 +8,6 @@ import 'coin.dart';
 import 'package:http/http.dart' as http;
 
 class API {
-  Future<Coin> fetchCoinDetails(String coinId) async {
-    Coin coin;
-    var url = Uri.parse(
-        "https://api.coingecko.com/api/v3/coins/$coinId?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false");
-    try {
-      final resp = await http.get(url);
-      Map<String, dynamic> details = json.decode(resp.body);
-      coin = Coin.fromJsonDetail(details);
-      return coin;
-    } catch (e) {
-      throw Exception("Fetch Coin Details Exception: $e");
-    }
-  }
-
   Future<List<Coin>> fetchMarket() async {
     List<Coin> _coinList = <Coin>[];
     final resp = await http.get(Uri.parse(
@@ -31,7 +17,7 @@ class API {
       // If the call to the server was successful, parse the JSON
       List<dynamic> decoded = json.decode(resp.body);
       for (dynamic coin in decoded) {
-        _coinList.add(Coin.fromJsonMarket(coin));
+        _coinList.add(Coin.fromJson(coin));
       }
       return _coinList;
     } catch (e) {

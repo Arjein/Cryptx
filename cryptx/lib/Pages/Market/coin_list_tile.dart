@@ -40,7 +40,7 @@ class CoinListTile extends ConsumerWidget {
             children: [
               Text(coin.symbol.toUpperCase()),
               Text(
-                "%${coin.price_change_percentage_24h.toStringAsFixed(2)}",
+                "${coin.price_change_percentage_24h.toStringAsFixed(2)}%",
                 style: TextStyle(
                     color: coin.price_change_percentage_24h > 0
                         ? Colors.green

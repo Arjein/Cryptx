@@ -12,21 +12,17 @@ class TradeButton extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(12),
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          shape: const StadiumBorder(),
-          side: const BorderSide(
-            color: AppColors.obsidian_invert,
-            width: 1,
-          ),
-          backgroundColor: AppColors.obsidian_darker,
-          foregroundColor: color,
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: OutlinedButton.styleFrom(
+        side: const BorderSide(
+          color: AppColors.obsidian_invert,
+          width: 0,
         ),
-        child: Text(text),
+        backgroundColor: AppColors.obsidian_darker,
+        foregroundColor: color,
       ),
+      child: Text(text),
     );
   }
 }

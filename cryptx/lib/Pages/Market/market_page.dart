@@ -35,7 +35,9 @@ class CoinListPage extends ConsumerWidget {
             margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.obsidian_invert),
+              border: Border.all(
+                color: AppColors.obsidian_invert,
+              ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: TextField(

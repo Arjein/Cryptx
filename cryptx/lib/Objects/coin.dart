@@ -24,7 +24,7 @@ class Coin {
       required this.price_change_percentage_24h,
       this.marketcap_rank});
 
-  factory Coin.fromJsonMarket(Map<String, dynamic> jsonData) {
+  factory Coin.fromJson(Map<String, dynamic> jsonData) {
     return Coin(
       id: jsonData["id"],
       symbol: jsonData["symbol"],
@@ -32,21 +32,11 @@ class Coin {
       image: jsonData["image"],
       current_price: jsonData["current_price"],
       price_change_percentage_24h: jsonData["price_change_percentage_24h"],
+      marketcap_rank: jsonData["market_cap_rank"]
     );
   }
 
-  factory Coin.fromJsonDetail(Map<String, dynamic> jsonData) {
-    return Coin(
-      id: jsonData["id"],
-      symbol: jsonData["symbol"],
-      name: jsonData["name"],
-      image: jsonData["image"]["small"],
-      current_price: jsonData["market_data"]["current_price"]["usd"],
-      price_change_percentage_24h: jsonData["market_data"]
-          ["price_change_percentage_24h"],
-      marketcap_rank: jsonData["market_cap_rank"],
-    );
-  }
+
 
   static Map<String, dynamic> toJson(Coin coin) => <String, dynamic>{
         'id': coin.id,
