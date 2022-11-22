@@ -10,6 +10,7 @@ class CoinChart extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Candle>? _chartData = ref.watch(chartProvider).value;
+
     return _chartData != null
         ? SfCartesianChart(
             title: ChartTitle(

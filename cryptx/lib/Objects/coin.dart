@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 class Coin {
@@ -7,6 +9,7 @@ class Coin {
   final String image;
   final double current_price;
   final double price_change_percentage_24h;
+  final num? marketcap_rank;
 
   @override
   String toString() =>
@@ -18,9 +21,10 @@ class Coin {
       required this.name,
       required this.image,
       required this.current_price,
-      required this.price_change_percentage_24h});
+      required this.price_change_percentage_24h,
+      this.marketcap_rank});
 
-  factory Coin.fromJson(Map<String, dynamic> jsonData) {
+  factory Coin.fromJsonMarket(Map<String, dynamic> jsonData) {
     return Coin(
       id: jsonData["id"],
       symbol: jsonData["symbol"],
@@ -28,6 +32,19 @@ class Coin {
       image: jsonData["image"],
       current_price: jsonData["current_price"],
       price_change_percentage_24h: jsonData["price_change_percentage_24h"],
+    );
+  }
+
+  factory Coin.fromJsonDetail(Map<String, dynamic> jsonData) {
+    return Coin(
+      id: jsonData["id"],
+      symbol: jsonData["symbol"],
+      name: jsonData["name"],
+      image: jsonData["image"]["small"],
+      current_price: jsonData["market_data"]["current_price"]["usd"],
+      price_change_percentage_24h: jsonData["market_data"]
+          ["price_change_percentage_24h"],
+      marketcap_rank: jsonData["market_cap_rank"],
     );
   }
 

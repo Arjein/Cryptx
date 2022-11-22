@@ -19,8 +19,10 @@ class CoinListTile extends ConsumerWidget {
           ref.read(coinProvider.notifier).update((state) => coin);
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: ((context) => CoinDetail(
-                    coin: coin,
+              builder: ((context) => ProviderScope(
+                    child: CoinDetail(
+                      coin: coin,
+                    ),
                   )),
             ),
           );

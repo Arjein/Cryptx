@@ -28,8 +28,8 @@ class CoinListPage extends ConsumerWidget {
       appBar: AppBar(
         title: const Text("C R Y P T X"),
       ),
-      body: Container(
-        child: Column(children: <Widget>[
+      body: Column(
+        children: <Widget>[
           Container(
             height: 45,
             margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
@@ -60,11 +60,12 @@ class CoinListPage extends ConsumerWidget {
                   )
                 : const Center(child: CircularProgressIndicator()),
           ),
-        ]),
+        ],
       ),
     );
   }
 
+  // Search coin in ListView.
   void searchCoin(String query) {
     final List<Coin> coins = coinList!.where((coin) {
       final nameLower = coin.name.toLowerCase();
