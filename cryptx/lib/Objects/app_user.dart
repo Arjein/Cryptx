@@ -4,10 +4,6 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 
-/*TODO
-Add Username for users, display username on card.
-make registration and shared preferences.
- */
 class AppUser {
   String? publicKey;
   String? privateKey;

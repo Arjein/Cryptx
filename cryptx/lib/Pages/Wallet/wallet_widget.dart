@@ -1,4 +1,4 @@
-import 'package:cryptx/Colors/app_colors.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:flutter/material.dart';
 

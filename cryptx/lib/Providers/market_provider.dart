@@ -1,4 +1,3 @@
-
 import 'package:cryptx/Objects/API.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,7 +6,7 @@ final marketProvider = StateNotifierProvider<MarketNotifier, AsyncValue>(
 
 class MarketNotifier extends StateNotifier<AsyncValue> {
   MarketNotifier() : super(const AsyncValue.loading()) {
-    fetchLoopWithdelay(const Duration(seconds: 10));
+    fetchLoopWithdelay(const Duration(milliseconds: 4000));
   }
 
   Future<void> fetchLoopWithdelay(Duration delay) async {

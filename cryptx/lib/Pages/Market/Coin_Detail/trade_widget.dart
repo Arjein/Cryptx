@@ -1,7 +1,11 @@
-import 'package:cryptx/Pages/Market/Coin_Detail/TradeButton.dart';
-import 'package:cryptx/Pages/Market/Coin_Detail/amount_input.dart';
+import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Pages/Market/Coin_Detail/Trade_Operations/TradeButton.dart';
+import 'package:cryptx/Pages/Market/Coin_Detail/Trade_Operations/cash_input.dart';
+import 'package:cryptx/Pages/Market/Coin_Detail/Trade_Operations/trade_op.dart';
+import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:flutter/material.dart';
-import 'coin_output.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'Trade_Operations/coin_output.dart';
 
 class TradeWidget extends StatelessWidget {
   const TradeWidget({super.key});
@@ -11,9 +15,12 @@ class TradeWidget extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Column(
-        children: const [
+        children: [
           TabBar(
-            tabs: [
+            onTap: (value) {
+              func(context);
+            },
+            tabs: const [
               Tab(
                 text: "Buy",
               ),
@@ -23,13 +30,15 @@ class TradeWidget extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 200,
-            child: TabBarView(
+            height: UserDevice().getDeviceHeight(context) * 18 / 100,
+            child: const TabBarView(
               children: [
-                BuyWidget(
+                TradeOperationWidget(
                   text: "Buy",
                 ),
-                Center(child: Text("Kişisel Bilgiler")),
+                TradeOperationWidget(
+                  text: "Sell",
+                ),
               ],
             ),
           ),
@@ -39,27 +48,9 @@ class TradeWidget extends StatelessWidget {
   }
 }
 
-class BuyWidget extends StatefulWidget {
-  const BuyWidget({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-  final String text;
-
-  @override
-  State<BuyWidget> createState() => _BuyWidgetState();
-}
-
-class _BuyWidgetState extends State<BuyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        const AmountInput(),
-        const CoinOutput(),
-        TradeButton(text: widget.text, onPressed: () {}, color: Colors.green),
-      ],
-    );
-  }
+void func(context) {
+  var a = ProviderScope.containerOf(context, listen: false)
+      .read(usdProvider.notifier)
+      .update((state) => 0);
+  debugPrint("Provider okuma denemesi: $a");
 }

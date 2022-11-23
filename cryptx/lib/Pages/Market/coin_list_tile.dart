@@ -1,4 +1,4 @@
-import 'package:cryptx/Colors/app_colors.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_detail.dart';
 import 'package:cryptx/Providers/basic_providers.dart';

@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_unnecessary_containers
 
-import 'package:cryptx/Colors/app_colors.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Pages/Settings/settings_page.dart';
 import 'package:flutter/material.dart';

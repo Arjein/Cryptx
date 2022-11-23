@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:convert';
-
 class Coin {
   final String id;
   final String symbol;
@@ -26,17 +24,14 @@ class Coin {
 
   factory Coin.fromJson(Map<String, dynamic> jsonData) {
     return Coin(
-      id: jsonData["id"],
-      symbol: jsonData["symbol"],
-      name: jsonData["name"],
-      image: jsonData["image"],
-      current_price: jsonData["current_price"],
-      price_change_percentage_24h: jsonData["price_change_percentage_24h"],
-      marketcap_rank: jsonData["market_cap_rank"]
-    );
+        id: jsonData["id"],
+        symbol: jsonData["symbol"],
+        name: jsonData["name"],
+        image: jsonData["image"],
+        current_price: jsonData["current_price"],
+        price_change_percentage_24h: jsonData["price_change_percentage_24h"],
+        marketcap_rank: jsonData["market_cap_rank"]);
   }
-
-
 
   static Map<String, dynamic> toJson(Coin coin) => <String, dynamic>{
         'id': coin.id,

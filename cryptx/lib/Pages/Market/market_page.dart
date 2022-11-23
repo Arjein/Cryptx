@@ -1,4 +1,4 @@
-import 'package:cryptx/Colors/app_colors.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Market/coin_list.dart';
 import 'package:cryptx/Providers/basic_providers.dart';
@@ -13,7 +13,8 @@ class CoinListPage extends ConsumerWidget {
   List<Coin>? coinList;
   List<Coin>? oldcoinList;
   List<Coin>? queryList;
-  String quasdery = '';
+  String? query;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (coinList != null && coinList!.length > 1) {
@@ -22,8 +23,7 @@ class CoinListPage extends ConsumerWidget {
       }
     }
     coinList = ref.watch(marketProvider).value;
-    final String? query = ref.watch(queryProvider) as String?;
-    debugPrint("Query:$query");
+    query = ref.watch(queryProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text("C R Y P T X"),
@@ -31,6 +31,7 @@ class CoinListPage extends ConsumerWidget {
       body: Column(
         children: <Widget>[
           Container(
+            // Search Bar.
             height: 45,
             margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
             decoration: BoxDecoration(
@@ -76,7 +77,6 @@ class CoinListPage extends ConsumerWidget {
       return nameLower.contains(qLower);
     }).toList();
     queryList = coins;
-    debugPrint(queryList.toString());
   }
 }
 

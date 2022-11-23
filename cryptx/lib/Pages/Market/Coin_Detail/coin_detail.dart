@@ -1,6 +1,4 @@
 import 'package:cryptx/Objects/coin.dart';
-import 'package:cryptx/Pages/Market/Coin_Detail/TradeButton.dart';
-import 'package:cryptx/Pages/Market/Coin_Detail/amount_input.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_chart.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_detail_widget.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/trade_widget.dart';
@@ -15,8 +13,8 @@ class CoinDetail extends StatelessWidget {
     debugPrint("coindetail: ${coin.current_price}");
     return Scaffold(
       appBar: AppBar(title: Text(coin.id.toUpperCase())),
-      body: SingleChildScrollView(
-        child: Column(
+      body: Center(
+        child: ListView(
           children: <Widget>[
             SizedBox(height: 120, child: Image.network(coin.image)),
             const SizedBox(
@@ -24,7 +22,7 @@ class CoinDetail extends StatelessWidget {
             ),
             CoinDetailWidget(coin: coin),
             CoinChart(coinSymbol: coin.symbol),
-            TradeWidget(),
+            const TradeWidget(),
             // Those shouldn't be in a row. Edit them in column. Implement the buy sell mech
           ],
         ),

@@ -1,8 +1,6 @@
-import 'package:cryptx/Pages/Home/home_page.dart';
 import 'package:cryptx/Pages/Login/login_form.dart';
 import 'package:cryptx/Pages/Register/register_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Login_Screen extends StatelessWidget {
   Login_Screen({super.key});
@@ -15,7 +13,7 @@ class Login_Screen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            login_form(loginFormKey: _loginFormKey),
+            LoginForm(loginFormKey: _loginFormKey),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

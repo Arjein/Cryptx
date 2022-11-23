@@ -1,9 +1,5 @@
 import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:cryptx/Objects/candle.dart';
-import 'package:flutter/material.dart';
-
 import 'coin.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,6 +11,7 @@ class API {
 
     try {
       // If the call to the server was successful, parse the JSON
+
       List<dynamic> decoded = json.decode(resp.body);
       for (dynamic coin in decoded) {
         _coinList.add(Coin.fromJson(coin));
@@ -36,20 +33,14 @@ class API {
       final resp = await http.get(request);
 
       List<dynamic> decodedResp = json.decode(resp.body);
-      debugPrint(decodedResp[0].toString());
 
       for (dynamic day in decodedResp) {
         _chartData.add(Candle.fromJson(day));
       }
-      debugPrint(_chartData[_chartData.length - 1].toString());
+
       return _chartData;
     } catch (e) {
       throw Exception("CoinGecko Graph Exception:$e");
     }
-  }
-
-  saptrial() async {
-    Uri request = Uri.parse("https://api.binance.com/sapi/v1/margin/allAssets");
-    final resp = await http.get(request);
   }
 }

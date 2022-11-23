@@ -7,8 +7,8 @@ import 'package:cryptx/Pages/Home/home_page.dart';
 import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
 
-class login_form extends StatefulWidget {
-  const login_form({
+class LoginForm extends StatefulWidget {
+  const LoginForm({
     Key? key,
     required this.loginFormKey,
   }) : super(key: key);
@@ -16,10 +16,10 @@ class login_form extends StatefulWidget {
   final GlobalKey<FormState> loginFormKey;
 
   @override
-  State<login_form> createState() => _login_formState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _login_formState extends State<login_form> {
+class _LoginFormState extends State<LoginForm> {
   late String? _email;
   late String? _password;
   final TextEditingController _emailController = TextEditingController();
