@@ -1,3 +1,4 @@
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_field.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_validator.dart';
 import 'package:cryptx/Firebase/auth.dart';
@@ -71,20 +72,17 @@ class _LoginFormState extends State<LoginForm> {
           ElevatedButton(
               onPressed: () async {
                 if (validateForm(widget.loginFormKey, context)) {
-                  if (await Auth_User(
+                  if (await authUser(
                       _emailController.text, _passwordController.text)) {
                     // TODO
                     debugPrint("User Authenticated");
                     AppUser? user = await readUserfromDB(_emailController.text);
-
                     if (user != null &&
                         await UserSecureStorage.setUser(
                             user, _passwordController.text)) {
+                      CurrentUser.user = await UserSecureStorage.getUser();
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => HomePage(
-                                    appUser: user,
-                                  )),
+                          MaterialPageRoute(builder: (context) => const HomePage()),
                           (Route<dynamic> route) => false);
                     }
                   }

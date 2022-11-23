@@ -1,21 +1,16 @@
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Providers/basic_providers.dart';
-import 'package:cryptx/Providers/market_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CoinDetailWidget extends ConsumerWidget {
   const CoinDetailWidget({required this.coin, super.key});
   final Coin coin;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    /*
-    List<Coin> cl = ref.watch(marketProvider).value;
-    var c = cl.where((element) => element.id == coin.id).first;
-    */
     Coin c = ref.watch(coinDetailProvider) as Coin;
 
-    debugPrint(c.toString());
     return Container(
       alignment: Alignment.center,
       child: c != null
@@ -54,7 +49,7 @@ class CoinDetailWidget extends ConsumerWidget {
                 )
               ],
             )
-          : const CircularProgressIndicator(),
+          : SpinKitDoubleBounce(),
     );
   }
 }

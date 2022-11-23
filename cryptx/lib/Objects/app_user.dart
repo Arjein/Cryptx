@@ -1,31 +1,25 @@
-// ignore_for_file: unnecessary_this
-
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 
 class AppUser {
-  String? publicKey;
-  String? privateKey;
   final String? email;
   final String? username;
   String? hash;
-  double balance = 0;
+  Map<String, dynamic>? coins;
+  
 
   AppUser(
     this.username,
     this.email,
     String password,
+    this.coins,
   ) {
-    this.hash = hashPassword(password);
+    hash = hashPassword(password);
   }
   @override
   String toString() =>
-      "Username: $username\nEmail: $email\nPassword(Hash): $hash";
-  bool addBalance(double cash) {
-    this.balance += cash;
-    return true;
-  }
+      "Username: $username\nEmail: $email\nPassword(Hash): $hash\nCoins:\n$coins";
 
   String hashPassword(String password) {
     var bytes = utf8.encode(password);
@@ -37,6 +31,7 @@ class AppUser {
       "Username": username,
       "Email": email,
       "Hash": hash,
+      "Coins": coins,
     };
   }
 
@@ -49,6 +44,7 @@ class AppUser {
       data?["Username"],
       data?["Email"],
       data?["Hash"],
+      data?["Coins"],
     );
   }
 
@@ -57,6 +53,7 @@ class AppUser {
       jsonData["Username"],
       jsonData["Email"],
       jsonData["Hash"],
+      jsonData["Coins"],
     );
   }
 
@@ -64,6 +61,7 @@ class AppUser {
         'Email': model.email,
         'Username': model.username,
         'Hash': model.hash,
+        'Coins': model.coins,
       };
 
   static String serialize(AppUser model) => json.encode(AppUser.toMap(model));

@@ -25,7 +25,6 @@ class CashInput extends ConsumerWidget {
           ref
               .read(usdProvider.notifier)
               .update((state) => value != "" ? num.parse(value) : 0);
-          debugPrint("Builded something");
         },
         autocorrect: false,
         keyboardType: const TextInputType.numberWithOptions(decimal: true),

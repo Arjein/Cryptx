@@ -1,4 +1,6 @@
+import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Objects/coin.dart';
+import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'market_provider.dart';

@@ -12,8 +12,12 @@ class CoinListTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
+      color: AppColors.obsidian,
       shape: const RoundedRectangleBorder(
-          side: BorderSide(color: AppColors.obsidian_invert, width: 0.25)),
+          side: BorderSide(
+        color: AppColors.obsidian_invert,
+        width: 0.1,
+      )),
       child: InkWell(
         onTap: () {
           ref.read(coinProvider.notifier).update((state) => coin);

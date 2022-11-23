@@ -5,6 +5,7 @@ import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:cryptx/Providers/market_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 //TODO PROVIDER
 
@@ -61,7 +62,10 @@ class CoinListPage extends ConsumerWidget {
                     coinList: coinList,
                     querycoinList: queryList,
                   )
-                : const Center(child: CircularProgressIndicator()),
+                : const Center(
+                    child: SpinKitFadingCircle(
+                    color: AppColors.obsidian_invert,
+                  )),
           ),
         ],
       ),

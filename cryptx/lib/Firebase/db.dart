@@ -1,16 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cryptx/Objects/app_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-Future<bool> registerAppUserDB(AppUser user) async {
+Future<bool> registerAppUserDB(AppUser user, User firebaseUser) async {
   try {
     FirebaseFirestore.instance
         .collection("Users")
+        .doc(firebaseUser.uid)
         .withConverter(
           fromFirestore: AppUser.fromFirestore,
           toFirestore: (AppUser user, options) => user.toFirestore(),
         )
-        .add(user);
+        .set(user);
     return true;
   } catch (e) {
     debugPrint(e.toString());
@@ -41,4 +43,13 @@ Future<AppUser?> readUserfromDB(String email) async {
     debugPrint(e.toString());
     return null;
   }
+}
+
+Future<bool> updateUseronLogOut(User firebaseUser, AppUser appUser) async {
+  FirebaseFirestore.instance
+      .collection("Users")
+      .doc(firebaseUser.uid)
+      .update({"Coins": appUser.coins});
+
+  return true;
 }

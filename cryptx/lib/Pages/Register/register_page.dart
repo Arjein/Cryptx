@@ -73,9 +73,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 ElevatedButton(
                   onPressed: () async {
                     if (validateForm(_registerFormKey, context)) {
-                      AppUser newUser =
-                          AppUser(_username!, _email!, _password!);
-                      if (await Register_User(newUser)) {
+                      AppUser newUser = AppUser(
+                          _username!, _email!, _password!, <String, dynamic>{});
+                      if (await registerUser(newUser)) {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: ((context) => Login_Screen()),

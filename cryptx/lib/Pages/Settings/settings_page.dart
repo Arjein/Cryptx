@@ -1,3 +1,5 @@
+import 'package:cryptx/Constants/current_user.dart';
+import 'package:cryptx/Firebase/db.dart';
 import 'package:cryptx/Pages/Login/login_page.dart';
 import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +41,8 @@ class tempSettingsTile extends StatelessWidget {
       child: TextButton(
           onPressed: () async {
             // Navigate back to the login
+            updateUseronLogOut(CurrentUser.firebaseUser!, CurrentUser.user!);
+            await Future.delayed(const Duration(seconds: 2));
             if (await UserSecureStorage.deleteStorage()) {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/login', (Route<dynamic> route) => false);

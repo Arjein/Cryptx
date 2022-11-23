@@ -10,7 +10,6 @@ class CoinOutput extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Coin coin = ref.watch(coinDetailProvider) as Coin;
     num usd = ref.watch(usdProvider);
-    debugPrint("Build me: Coin Input");
     num amount = usd != 0 ? usd / coin.current_price : 0;
 
     //return Text(amount.toString());

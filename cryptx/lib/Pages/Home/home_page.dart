@@ -1,3 +1,4 @@
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Pages/Market/market_page.dart';
 import 'package:cryptx/Pages/Wallet/app_wallet.dart';
@@ -6,9 +7,7 @@ import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
   const HomePage({
     Key? key,
-    required this.appUser,
   }) : super(key: key);
-  final AppUser appUser;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       CoinListPage(),
-      AppWallet(appUser: widget.appUser),
+      AppWallet(),
     ];
 
     super.initState();
@@ -43,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AppColors.obsidian,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.monetization_on_outlined),
