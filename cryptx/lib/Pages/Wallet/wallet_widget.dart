@@ -1,7 +1,6 @@
 import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Constants/device_options.dart';
-import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Providers/user_balance_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -63,7 +62,7 @@ class WalletWidget extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    balance_widget(),
+                    const BalanceWidget(),
                     Text(
                         style: Theme.of(context).textTheme.overline, "Balance"),
                   ],
@@ -77,8 +76,8 @@ class WalletWidget extends StatelessWidget {
   }
 }
 
-class balance_widget extends ConsumerWidget {
-  const balance_widget({
+class BalanceWidget extends ConsumerWidget {
+  const BalanceWidget({
     Key? key,
   }) : super(key: key);
 
@@ -86,7 +85,7 @@ class balance_widget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var _currentBalance = ref.watch(userBalanceProvider);
     return Text(
-        style: Theme.of(context).textTheme.titleSmall,
-        _currentBalance.toString());
+        style: Theme.of(context).textTheme.headline6,
+        "\$${_currentBalance!.toStringAsFixed(6)}");
   }
 }

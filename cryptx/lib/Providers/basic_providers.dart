@@ -1,6 +1,7 @@
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Storage/user_secure_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'market_provider.dart';
@@ -21,5 +22,10 @@ final coinDetailProvider = StateProvider<Coin?>(
   },
 );
 
-final usdProvider = StateProvider.autoDispose<num>((ref) => 0);
-final coin_usdProvider = StateProvider.autoDispose<num>((ref) => 0);
+final tetherProvider = StateProvider<Coin?>(
+  (ref) {
+    List<Coin> cl = ref.watch(marketProvider).value;
+    var c = cl.where((element) => element.id == "tether").first;
+    return c;
+  },
+);

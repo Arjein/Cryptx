@@ -14,7 +14,7 @@ class API {
       // If the call to the server was successful, parse the JSON
 
       List<dynamic> decoded = json.decode(resp.body);
-      debugPrint(decoded[0]["current_price"].toString());
+      debugPrint("API works: Bitcoin Price: ${decoded[0]["current_price"]}");
       for (dynamic coin in decoded) {
         _coinList.add(Coin.fromJson(coin));
       }
@@ -27,7 +27,7 @@ class API {
 
   Future<List<Candle>> fetchChart(String coinId) async {
     try {
-      List<Candle> _chartData = <Candle>[];
+      List<Candle> chartData = <Candle>[];
 
       Uri request = Uri.parse(
           "https://api.coingecko.com/api/v3/coins/$coinId/ohlc?vs_currency=usd&days=7");
@@ -37,10 +37,10 @@ class API {
       List<dynamic> decodedResp = json.decode(resp.body);
 
       for (dynamic day in decodedResp) {
-        _chartData.add(Candle.fromJson(day));
+        chartData.add(Candle.fromJson(day));
       }
 
-      return _chartData;
+      return chartData;
     } catch (e) {
       throw Exception("CoinGecko Graph Exception:$e");
     }

@@ -1,12 +1,10 @@
-import 'package:cryptx/Objects/app_user.dart';
-import 'package:cryptx/Pages/Market/Coin_Detail/Trade_Operations/TradeButton.dart';
-import 'package:cryptx/Storage/user_secure_storage.dart';
+import 'package:cryptx/Objects/coin.dart';
+import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'exhange_widget.dart';
 
-import 'cash_input.dart';
-import 'coin_output.dart';
-
-class TradeOperationWidget extends StatelessWidget {
+class TradeOperationWidget extends ConsumerWidget {
   const TradeOperationWidget({
     Key? key,
     required this.text,
@@ -14,17 +12,13 @@ class TradeOperationWidget extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        const CashInput(),
-        const CoinOutput(),
-        TradeButton(
-          text: text,
-          color: text == "Buy" ? Colors.green : Colors.red,
-        ),
-      ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    Coin coin = ref.watch(coinDetailProvider) as Coin;
+    Coin tether = ref.watch(tetherProvider) as Coin;
+    return ExchangeWidget(
+      coin: coin,
+      text: text,
+      tether: tether,
     );
   }
 }

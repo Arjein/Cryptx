@@ -2,52 +2,80 @@ import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Objects/coin.dart';
-import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TradeButton extends ConsumerWidget {
-  const TradeButton({super.key, required this.text, required this.color});
+class TradeButton extends StatefulWidget {
+  const TradeButton(
+      {super.key,
+      required this.text,
+      required this.coin,
+      required this.color,
+      required this.amount,
+      required this.tether});
   final String text;
+  final Coin coin;
+  final Coin tether;
   final Color color;
+  final num amount;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    Coin coin = ref.watch(coinDetailProvider) as Coin;
-    AppUser user = CurrentUser.user!;
-    debugPrint(user.toString());
-    num amount = ref.watch(usdProvider);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: OutlinedButton(
-        onPressed: () async {
-          if (text == "Buy") {
-            debugPrint("Buy pressed!");
-            num buyPrice = amount * coin.current_price;
-            debugPrint(buyPrice.toString());
-            if (user.coins![coin.id] == null) {
-              user.coins![coin.id] = amount;
-            } else {
-              user.coins![coin.id] = user.coins![coin.id]! + amount;
-            }
-            await UserSecureStorage.setUserCoins(user);
+  State<TradeButton> createState() => _TradeButtonState();
+}
 
+class _TradeButtonState extends State<TradeButton> {
+  @override
+  Widget build(BuildContext context) {
+    AppUser user = CurrentUser.user!;
+    num userbalance = user.coins!["tether"] ?? 0;
+    num totalCost = widget.coin.current_price * widget.amount;
+    num userTotalCoins = user.coins![widget.coin.id] ?? 0;
+    debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
+    return OutlinedButton(
+      onPressed: () async {
+        if (widget.text == "Buy") {
+          debugPrint("Buy pressed!");
+          debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
+          if (userbalance >= totalCost) {
+            // If Balance is enough
+            if (user.coins![widget.coin.id] == null) {
+              user.coins![widget.coin.id] = widget.amount;
+            } else {
+              user.coins![widget.coin.id] =
+                  user.coins![widget.coin.id]! + widget.amount;
+            }
+            debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
+            user.coins!["tether"] -= totalCost;
+
+            await UserSecureStorage.setUserCoins(user);
             debugPrint(user.coins.toString());
-          } else if (text == "Sell") {
-            debugPrint("Sell Pressed1");
+          } else {
+            debugPrint("Not Enough Balance!");
           }
-        },
-        style: OutlinedButton.styleFrom(
-          shape: const StadiumBorder(),
-          side: const BorderSide(
-            color: AppColors.obsidian_invert,
-            width: 0.5,
-          ),
-          backgroundColor: AppColors.obsidian_darker,
-          foregroundColor: color,
+        } else if (widget.text == "Sell") {
+          debugPrint("Sell Pressed1");
+          if (userTotalCoins >= widget.amount && widget.amount != 0) {
+            user.coins![widget.coin.id] -= widget.amount;
+            debugPrint("İslem oldu");
+            num earnedUSDT = widget.coin.current_price * (widget.amount);
+
+            user.coins!["tether"] += earnedUSDT;
+          } else {
+            debugPrint(user.toString());
+            debugPrint("Not enough coins");
+          }
+        }
+      },
+      style: OutlinedButton.styleFrom(
+        shape: const StadiumBorder(),
+        side: const BorderSide(
+          color: AppColors.obsidian_invert,
+          width: 0.5,
         ),
-        child: Text(text),
+        backgroundColor: AppColors.obsidian_darker,
+        foregroundColor: widget.color,
       ),
+      child: Text(widget.text),
     );
   }
 }

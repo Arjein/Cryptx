@@ -12,7 +12,7 @@ final userBalanceProvider = StateProvider<num?>(
     AppUser? user = CurrentUser.user!;
     var userCoins = user.coins;
     List<Coin> cl = ref.watch(marketProvider).value ?? [];
-    debugPrint("Fetched data");
+
     if (cl.isNotEmpty) {
       for (Coin c in cl) {
         if (userCoins!.containsKey(c.id)) {
