@@ -1,13 +1,15 @@
+import 'dart:convert';
+
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_chart.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_detail_widget.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/trade_widget.dart';
 import 'package:flutter/material.dart';
 
+
 class CoinDetail extends StatelessWidget {
   const CoinDetail({super.key, required this.coin});
   final Coin coin;
-
   @override
   Widget build(BuildContext context) {
     debugPrint("coindetail: ${coin.current_price}");

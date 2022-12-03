@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cryptx/Objects/candle.dart';
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import 'coin.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,24 +26,26 @@ class API {
     }
   }
 
-  Future<List<Candle>> fetchChart(String coinId) async {
+
+
+  Future<List<Candle>> fetchChart(String coinSymbol, String interval) async {
     try {
       List<Candle> chartData = <Candle>[];
-
+      debugPrint("${coinSymbol.toUpperCase()}USDT interval: $interval");
       Uri request = Uri.parse(
-          "https://api.coingecko.com/api/v3/coins/$coinId/ohlc?vs_currency=usd&days=7");
+          "https://api.binance.com/api/v3/klines?symbol=${coinSymbol.toUpperCase()}USDT&interval=$interval");
 
       final resp = await http.get(request);
-
+      debugPrint(resp.body);
       List<dynamic> decodedResp = json.decode(resp.body);
-
+      debugPrint(decodedResp.toString());
       for (dynamic day in decodedResp) {
         chartData.add(Candle.fromJson(day));
       }
 
       return chartData;
     } catch (e) {
-      throw Exception("CoinGecko Graph Exception:$e");
+      throw Exception("Binance Graph Exception:$e");
     }
   }
 }
