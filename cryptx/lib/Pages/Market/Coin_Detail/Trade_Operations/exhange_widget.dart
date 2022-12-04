@@ -20,7 +20,7 @@ class ExchangeWidget extends StatefulWidget {
 }
 
 class _ExchangeWidgetState extends State<ExchangeWidget> {
-  num amount = 0;
+  double amount = 0;
 
   final usdtTextController = TextEditingController();
   final coinTextController = TextEditingController();
@@ -49,13 +49,13 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
     if (usdFocus.hasFocus) {
       coinTextController.clear();
       if (usdtTextController.text.isNotEmpty &&
-          num.tryParse(usdtTextController.text) != null) {
+          double.tryParse(usdtTextController.text) != null) {
         setState(() {
           coinTextController.text = (double.parse(usdtTextController.text) *
-                  (widget.tether.current_price / widget.coin.current_price))
+                  (widget.tether.current_price! / widget.coin.current_price!))
               .toStringAsFixed(12);
 
-          amount = num.parse(coinTextController.text);
+          amount = double.parse(coinTextController.text);
           debugPrint("Amount: $amount");
         });
       }
@@ -66,13 +66,13 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
     if (coinFocus.hasFocus) {
       usdtTextController.clear();
       if (coinTextController.text.isNotEmpty &&
-          num.tryParse(coinTextController.text) != null) {
+          double.tryParse(coinTextController.text) != null) {
         setState(() {
           usdtTextController.text = (double.parse(coinTextController.text) *
-                  (widget.coin.current_price / widget.tether.current_price))
+                  (widget.coin.current_price! / widget.tether.current_price!))
               .toStringAsFixed(6);
           debugPrint("Amount: $amount");
-          amount = num.parse(coinTextController.text);
+          amount = double.parse(coinTextController.text);
         });
       }
     }
@@ -112,8 +112,8 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
           child: TextField(
             focusNode: coinFocus,
             decoration: InputDecoration(
-              icon:
-                  SizedBox(height: 30, child: Image.network(widget.coin.image)),
+              icon: SizedBox(
+                  height: 30, child: Image.network(widget.coin.image!)),
               labelText: widget.coin.symbol.toUpperCase(),
               border: InputBorder.none,
             ),
@@ -129,7 +129,6 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
             amount: amount,
             coin: widget.coin,
             color: widget.text == "Buy" ? Colors.green : Colors.red,
-            tether: widget.tether,
           ),
         ),
       ],

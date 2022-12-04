@@ -5,11 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class CoinDetailWidget extends ConsumerWidget {
-  const CoinDetailWidget({required this.coin, super.key});
-  final Coin coin;
+  const CoinDetailWidget({required this.c, super.key});
+  final Coin c;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Coin c = ref.watch(coinDetailProvider) as Coin;
+    debugPrint(c.toString());
 
     return Container(
       alignment: Alignment.center,
@@ -29,10 +29,10 @@ class CoinDetailWidget extends ConsumerWidget {
                       WidgetSpan(
                         alignment: PlaceholderAlignment.middle,
                         child: Icon(
-                          c.price_change_percentage_24h > 0
+                          c.price_change_percentage_24h! > 0
                               ? Icons.trending_up_rounded
                               : Icons.trending_down_rounded,
-                          color: c.price_change_percentage_24h > 0
+                          color: c.price_change_percentage_24h! > 0
                               ? Colors.green
                               : Colors.red,
                         ),

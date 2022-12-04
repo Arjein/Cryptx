@@ -1,9 +1,10 @@
 import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Objects/CoinListObject.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Wallet/portfolio_coin_tile.dart';
-import 'package:cryptx/Providers/market_provider.dart';
+import 'package:cryptx/Providers/coinlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -23,7 +24,7 @@ class Portfolio extends StatelessWidget {
           ),
           ConstrainedBox(
             constraints: BoxConstraints(
-                maxHeight: UserDevice().getDeviceHeight(context) * 40 / 100),
+                maxHeight: UserDevice.getDeviceHeight(context) * 40 / 100),
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: const BoxDecoration(
@@ -48,12 +49,12 @@ class PortfolioCoinList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Coin> cl = ref.watch(marketProvider).value ?? [];
+    Map<String,Coin> cl = CoinListObject.coinMap;
     var userCoins = CurrentUser.user!.coins!; // Get the Id's of coins.
     List<Coin> userwallet = [];
     if (cl.isNotEmpty) {
-      for (Coin c in cl) {
-        if (userCoins.containsKey(c.id)) {
+      for (Coin c in cl.values) {
+        if (userCoins.containsKey(c.symbol)) {
           userwallet.add(c);
         }
       }

@@ -1,30 +1,32 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:cryptx/Constants/app_colors.dart';
+import 'package:cryptx/Objects/API.dart';
+import 'package:cryptx/Objects/CoinListObject.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Market/coin_list.dart';
 import 'package:cryptx/Providers/basic_providers.dart';
-import 'package:cryptx/Providers/market_provider.dart';
+import 'package:cryptx/Providers/coinlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:web_socket_channel/io.dart';
 
 //TODO PROVIDER
 
 class CoinListPage extends ConsumerWidget {
   CoinListPage({super.key});
-  List<Coin>? coinList;
-  List<Coin>? oldcoinList;
+
   List<Coin>? queryList;
+
   String? query;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (coinList != null && coinList!.length > 1) {
-      if (coinList!.isNotEmpty) {
-        oldcoinList = coinList;
-      }
-    }
-    coinList = ref.watch(marketProvider).value;
     query = ref.watch(queryProvider);
+    ref.watch(coinMapProvider);
+    debugPrint("Builded");
     return Scaffold(
       appBar: AppBar(
         title: const Text("C R Y P T X"),
@@ -57,9 +59,8 @@ class CoinListPage extends ConsumerWidget {
             ),
           ),
           Expanded(
-            child: coinList != null
+            child: CoinListObject.coinMap != null
                 ? CoinList(
-                    coinList: coinList,
                     querycoinList: queryList,
                   )
                 : const Center(
@@ -74,7 +75,8 @@ class CoinListPage extends ConsumerWidget {
 
   // Search coin in ListView.
   void searchCoin(String query) {
-    final List<Coin> coins = coinList!.where((coin) {
+    final List<Coin> coins =
+        CoinListObject.coinMap.values.toList().where((coin) {
       final nameLower = coin.name.toLowerCase();
       final qLower = query.toLowerCase();
 
@@ -83,12 +85,5 @@ class CoinListPage extends ConsumerWidget {
     queryList = coins;
   }
 }
-
-
-
-
-
-
-
 
 // CoinList(coinList: coinList),

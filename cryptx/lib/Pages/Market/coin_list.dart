@@ -1,18 +1,19 @@
 import 'dart:async';
 
+import 'package:cryptx/Objects/CoinListObject.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Market/coin_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CoinList extends StatelessWidget {
-  const CoinList({super.key, required this.coinList, this.querycoinList});
-  final List<Coin>? coinList;
+  const CoinList({super.key, this.querycoinList});
+
   final List<Coin>? querycoinList;
 
   @override
   Widget build(BuildContext context) {
-    return coinList != null
+    return CoinListObject.coinMap != null && CoinListObject.coinMap.isNotEmpty
         ? querycoinList != null
             ? querycoinList!.isNotEmpty
                 ? ListView.builder(
@@ -30,11 +31,12 @@ class CoinList extends StatelessWidget {
                     style: Theme.of(context).textTheme.headline4,
                   ))
             : ListView.builder(
-                itemCount: coinList!.length,
-                prototypeItem: CoinListTile(coin: coinList!.first),
+                itemCount: CoinListObject.coinMap.values.length,
+                prototypeItem:
+                    CoinListTile(coin: CoinListObject.coinMap.values.first),
                 itemBuilder: (context, index) {
                   return CoinListTile(
-                    coin: coinList![index],
+                    coin: CoinListObject.coinMap.values.toList()[index],
                   );
                 },
               )

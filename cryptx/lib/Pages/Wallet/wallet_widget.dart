@@ -14,7 +14,7 @@ class WalletWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      height: UserDevice().getDeviceHeight(context) * 20 / 100,
+      height: UserDevice.getDeviceHeight(context) * 20 / 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.transparent,

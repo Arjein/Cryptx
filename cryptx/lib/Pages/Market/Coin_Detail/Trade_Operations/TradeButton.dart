@@ -7,16 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TradeButton extends StatefulWidget {
-  const TradeButton(
-      {super.key,
-      required this.text,
-      required this.coin,
-      required this.color,
-      required this.amount,
-      required this.tether});
+  const TradeButton({
+    super.key,
+    required this.text,
+    required this.coin,
+    required this.color,
+    required this.amount,
+  });
   final String text;
   final Coin coin;
-  final Coin tether;
   final Color color;
   final num amount;
   @override
@@ -28,8 +27,8 @@ class _TradeButtonState extends State<TradeButton> {
   Widget build(BuildContext context) {
     AppUser user = CurrentUser.user!;
     num userbalance = user.coins!["tether"] ?? 0;
-    num totalCost = widget.coin.current_price * widget.amount;
-    num userTotalCoins = user.coins![widget.coin.id] ?? 0;
+    num totalCost = widget.coin.current_price! * widget.amount;
+    num userTotalCoins = user.coins![widget.coin.symbol] ?? 0;
     debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
     return OutlinedButton(
       onPressed: () async {
@@ -38,11 +37,11 @@ class _TradeButtonState extends State<TradeButton> {
           debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
           if (userbalance >= totalCost) {
             // If Balance is enough
-            if (user.coins![widget.coin.id] == null) {
-              user.coins![widget.coin.id] = widget.amount;
+            if (user.coins![widget.coin.symbol] == null) {
+              user.coins![widget.coin.symbol] = widget.amount;
             } else {
-              user.coins![widget.coin.id] =
-                  user.coins![widget.coin.id]! + widget.amount;
+              user.coins![widget.coin.symbol] =
+                  user.coins![widget.coin.symbol]! + widget.amount;
             }
             debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
             user.coins!["tether"] -= totalCost;
@@ -55,9 +54,9 @@ class _TradeButtonState extends State<TradeButton> {
         } else if (widget.text == "Sell") {
           debugPrint("Sell Pressed1");
           if (userTotalCoins >= widget.amount && widget.amount != 0) {
-            user.coins![widget.coin.id] -= widget.amount;
+            user.coins![widget.coin.symbol] -= widget.amount;
             debugPrint("İslem oldu");
-            num earnedUSDT = widget.coin.current_price * (widget.amount);
+            num earnedUSDT = widget.coin.current_price! * (widget.amount);
 
             user.coins!["tether"] += earnedUSDT;
           } else {

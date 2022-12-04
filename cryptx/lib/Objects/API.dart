@@ -2,31 +2,35 @@ import 'dart:convert';
 import 'package:cryptx/Objects/candle.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'CoinListObject.dart';
 import 'coin.dart';
 import 'package:http/http.dart' as http;
 
 class API {
-  Future<List<Coin>> fetchMarket() async {
-    List<Coin> _coinList = <Coin>[];
+  Future<Map<String, Coin>> fetchMarket() async {
     final resp = await http.get(Uri.parse(
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h"));
+        "https://api.binance.com/api/v3/ticker/24hr?symbols=${CoinListObject.binanceCoinFetch}"));
 
     try {
       // If the call to the server was successful, parse the JSON
-
       List<dynamic> decoded = json.decode(resp.body);
-      debugPrint("API works: Bitcoin Price: ${decoded[0]["current_price"]}");
+      debugPrint("API works: Bitcoin Price: ${decoded[0]["lastPrice"]}");
       for (dynamic coin in decoded) {
-        _coinList.add(Coin.fromJson(coin));
+        double currentPrice = double.parse(coin['lastPrice']);
+        double priceChange = double.parse(coin['priceChange']);
+        double priceChangePercent = double.parse(coin['priceChangePercent']);
+        String symbol = coin["symbol"];
+        CoinListObject.coinMap[symbol]!.current_price = currentPrice;
+        CoinListObject.coinMap[symbol]!.price_change = priceChange;
+        CoinListObject.coinMap[symbol]!.price_change_percentage_24h =
+            priceChangePercent;
       }
-      return _coinList;
+      return CoinListObject.coinMap;
     } catch (e) {
       // If that call was not successful, throw an error.
-      throw Exception('CoinGecko!:$e');
+      throw Exception('Binance!:$e');
     }
   }
-
-
 
   Future<List<Candle>> fetchChart(String coinSymbol, String interval) async {
     try {

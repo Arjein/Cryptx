@@ -1,6 +1,4 @@
-import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
-import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +8,9 @@ class PortfolioCoinTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    num coinAmount = CurrentUser.user!.coins![coin.id];
-    num coinBalance = CurrentUser.user!.coins![coin.id] * coin.current_price;
+    num coinAmount = CurrentUser.user!.coins![coin.symbol];
+    num coinBalance =
+        CurrentUser.user!.coins![coin.symbol] * coin.current_price;
     return SizedBox(
       child: InkWell(
         onTap: () {},
@@ -30,7 +29,7 @@ class PortfolioCoinTile extends StatelessWidget {
               Text(coinBalance.toStringAsFixed(6)),
             ],
           ),
-          leading: Image.network(coin.image, width: 35),
+          leading: Image.network(coin.image!, width: 35),
         ),
       ),
     );
