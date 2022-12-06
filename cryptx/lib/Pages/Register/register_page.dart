@@ -1,3 +1,4 @@
+import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_field.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_validator.dart';
 import 'package:cryptx/Firebase/auth.dart';
@@ -70,21 +71,30 @@ class _RegisterPageState extends State<RegisterPage> {
                   borderRadius: 20,
                   icon: const Icon(Icons.lock_outline),
                 ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (validateForm(_registerFormKey, context)) {
-                      AppUser newUser = AppUser(_username!, _email!, _password!,
-                          <String, dynamic>{"USDT": 1000});
-                      if (await registerUser(newUser)) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: ((context) => Login_Screen()),
-                          ),
-                        );
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: Size.fromHeight(
+                          UserDevice.getDeviceHeight(context) * 0.05),
+                      shape: const StadiumBorder(),
+                    ),
+                    onPressed: () async {
+                      if (validateForm(_registerFormKey, context)) {
+                        AppUser newUser = AppUser(_username!, _email!,
+                            _password!, <String, dynamic>{"USDT": 1000});
+                        if (await registerUser(newUser)) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: ((context) => Login_Screen()),
+                            ),
+                          );
+                        }
                       }
-                    }
-                  },
-                  child: const Text("Register"),
+                    },
+                    child: const Text("Register"),
+                  ),
                 ),
               ],
             ),

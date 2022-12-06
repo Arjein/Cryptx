@@ -20,29 +20,37 @@ class Portfolio extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           UserDevice.addVerticalSpace(context, 1),
-          const Text("USDT"),
-          PortfolioCoinTile(coin: CoinListObject.tether),
-          UserDevice.addVerticalSpace(context, 1),
-          const Text(
+          const PortfolioTether(),
+          UserDevice.addVerticalSpace(context, 2),
+          Text(
             "Crypto Assets",
+            style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(color: AppColors.lightBlue),
           ),
+          UserDevice.addVerticalSpace(context, 1),
           ConstrainedBox(
             constraints: BoxConstraints(
-                maxHeight: UserDevice.getDeviceHeight(context) * 40 / 100),
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12)),
-                color: AppColors.obsidian_darker,
-              ),
-              child: const PortfolioCoinList(),
-            ),
+                maxHeight: UserDevice.getDeviceHeight(context) * 43 / 100),
+            child: const PortfolioCoinList(),
           ),
         ],
       ),
     );
+  }
+}
+
+class PortfolioTether extends ConsumerWidget {
+  // PEK AKILLICA DEĞİL SANIRIM BUNA BAKMAK LAZIM
+  const PortfolioTether({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(coinMapProvider);
+    return PortfolioCoinTile(coin: CoinListObject.tether);
   }
 }
 
@@ -65,6 +73,10 @@ class PortfolioCoinList extends ConsumerWidget {
           userwallet.add(c);
         }
       }
+      userwallet.sort(
+        (a, b) => (b.current_price! * userCoins[b.symbol])
+            .compareTo(a.current_price! * userCoins[a.symbol]),
+      );
     }
 
     return ListView.builder(

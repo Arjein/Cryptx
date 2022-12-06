@@ -1,4 +1,5 @@
 import 'package:cryptx/Constants/Constants.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Providers/coinlist_provider.dart';
@@ -26,7 +27,10 @@ class CoinDetailWidget extends ConsumerWidget {
                     children: [
                       Text(
                         coin.symbol,
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: AppColors.obsidian_invert),
                       ),
                       UserDevice.addHorizontalSpace(context, 1),
                       SizedBox(
@@ -38,7 +42,10 @@ class CoinDetailWidget extends ConsumerWidget {
                   UserDevice.addVerticalSpace(context, 1),
                   Text(
                     coin.name,
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(color: AppColors.obsidian_invert),
                   ),
                   UserDevice.addVerticalSpace(context, 1),
                   Text(

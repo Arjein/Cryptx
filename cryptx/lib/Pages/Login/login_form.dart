@@ -1,3 +1,4 @@
+import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_field.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_validator.dart';
@@ -69,7 +70,10 @@ class _LoginFormState extends State<LoginForm> {
             borderRadius: 20,
             icon: const Icon(Icons.lock_outline),
           ),
-          ElevatedButton(
+          OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                shape: StadiumBorder(),
+              ),
               onPressed: () async {
                 if (validateForm(widget.loginFormKey, context)) {
                   if (await authUser(
@@ -82,7 +86,8 @@ class _LoginFormState extends State<LoginForm> {
                             user, _passwordController.text)) {
                       CurrentUser.user = await UserSecureStorage.getUser();
                       Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => const HomePage()),
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()),
                           (Route<dynamic> route) => false);
                     }
                   }

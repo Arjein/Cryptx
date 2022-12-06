@@ -35,11 +35,11 @@ class CoinListPage extends ConsumerWidget {
           Container(
             // Search Bar.
             height: 45,
-            margin: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            margin: const EdgeInsets.fromLTRB(24, 2, 24, 12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
-                color: AppColors.obsidian_invert,
+                color: AppColors.lightBlue,
               ),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 8),

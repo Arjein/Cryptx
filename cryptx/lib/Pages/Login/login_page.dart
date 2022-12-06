@@ -1,3 +1,5 @@
+import 'package:cryptx/Constants/Constants.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Pages/Login/login_form.dart';
 import 'package:cryptx/Pages/Register/register_page.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +21,18 @@ class Login_Screen extends StatelessWidget {
               children: [
                 const Text("Don't have an account? "),
                 TextButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: ((context) => RegisterPage()),
-                        ),
-                      );
-                    },
-                    child: const Text("Sign-up!")),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: ((context) => RegisterPage()),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Sign-up!",
+                    style: TextStyle(color: AppColors.orange),
+                  ),
+                ),
               ],
             )
           ],

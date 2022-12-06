@@ -7,10 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'coinlist_provider.dart';
 
-final userBalanceProvider = StateProvider<num?>(
+final userBalanceProvider = StateProvider<double?>(
   (ref) {
     ref.watch(coinMapProvider);
-    num balance = 0;
+    double balance = 0;
     AppUser? user = CurrentUser.user!;
     var userCoins = user.coins;
     balance += userCoins!["USDT"] ?? 0;

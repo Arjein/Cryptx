@@ -44,7 +44,10 @@ class _CoinDetailState extends State<CoinDetail> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
-        title: Text("${widget.coin.symbol} / USDT"),
+        title: Text(
+          "${widget.coin.symbol} / USDT",
+          style: Constants.defaultTextStyle,
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -75,7 +78,7 @@ class _CoinDetailState extends State<CoinDetail> {
                   },
                   style: selected == 0
                       ? OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.lightBlue,
+                          backgroundColor: AppColors.lightBlue.withOpacity(0.8),
                           foregroundColor: AppColors.obsidian_darker)
                       : null,
                   child: const Text("1d"),
@@ -89,7 +92,7 @@ class _CoinDetailState extends State<CoinDetail> {
                   },
                   style: selected == 1
                       ? OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.lightBlue,
+                          backgroundColor: AppColors.lightBlue.withOpacity(0.8),
                           foregroundColor: AppColors.obsidian_darker)
                       : null,
                   child: const Text("4h"),
@@ -103,7 +106,7 @@ class _CoinDetailState extends State<CoinDetail> {
                   },
                   style: selected == 2
                       ? OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.lightBlue,
+                          backgroundColor: AppColors.lightBlue.withOpacity(0.8),
                           foregroundColor: AppColors.obsidian_darker)
                       : null,
                   child: const Text("1h"),
@@ -117,7 +120,7 @@ class _CoinDetailState extends State<CoinDetail> {
                   },
                   style: selected == 3
                       ? OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.lightBlue,
+                          backgroundColor: AppColors.lightBlue.withOpacity(0.8),
                           foregroundColor: AppColors.obsidian_darker)
                       : null,
                   child: const Text("15m"),
@@ -131,7 +134,7 @@ class _CoinDetailState extends State<CoinDetail> {
                   },
                   style: selected == 4
                       ? OutlinedButton.styleFrom(
-                          backgroundColor: AppColors.lightBlue,
+                          backgroundColor: AppColors.lightBlue.withOpacity(0.8),
                           foregroundColor: AppColors.obsidian_darker)
                       : null,
                   child: const Text("5m"),
