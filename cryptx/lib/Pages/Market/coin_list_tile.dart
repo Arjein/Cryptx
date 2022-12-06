@@ -1,6 +1,7 @@
 import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Objects/coin.dart';
+import 'package:cryptx/Pages/Market/Coin_Detail/coin_chart.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_detail.dart';
 import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:flutter/material.dart';

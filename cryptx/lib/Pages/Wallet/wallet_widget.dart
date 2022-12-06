@@ -19,7 +19,7 @@ class WalletWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         color: Colors.transparent,
         border: Border.all(
-          color: AppColors.obsidian_invert,
+          color: AppColors.lightBlue.withOpacity(0.4),
           width: 2,
         ),
       ),
@@ -35,7 +35,7 @@ class WalletWidget extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall!
-                      .copyWith(fontSize: 30),
+                      .copyWith(fontSize: 30, color: AppColors.lightBlue),
                 ),
                 Container(
                   decoration: const ShapeDecoration(
@@ -84,6 +84,7 @@ class BalanceWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var _currentBalance = ref.watch(userBalanceProvider);
+    debugPrint("Rebuild Wallet");
     return Text(
         style: Theme.of(context).textTheme.headline6,
         "\$${_currentBalance!.toStringAsFixed(6)}");

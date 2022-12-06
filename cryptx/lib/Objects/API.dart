@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cryptx/Objects/candle.dart';
 import 'package:flutter/material.dart';
+import 'package:interactive_chart/interactive_chart.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'CoinListObject.dart';
 import 'coin.dart';
@@ -14,7 +15,7 @@ class API {
     try {
       // If the call to the server was successful, parse the JSON
       List<dynamic> decoded = json.decode(resp.body);
-      debugPrint("API works: Bitcoin Price: ${decoded[0]["lastPrice"]}");
+
       for (dynamic coin in decoded) {
         double currentPrice = double.parse(coin['lastPrice']);
         double priceChange = double.parse(coin['priceChange']);
@@ -37,16 +38,44 @@ class API {
       List<Candle> chartData = <Candle>[];
       debugPrint("${coinSymbol.toUpperCase()}USDT interval: $interval");
       Uri request = Uri.parse(
-          "https://api.binance.com/api/v3/klines?symbol=${coinSymbol.toUpperCase()}USDT&interval=$interval");
+          "https://api.binance.com/api/v3/klines?symbol=$coinSymbol&interval=$interval");
 
       final resp = await http.get(request);
-      debugPrint(resp.body);
+
       List<dynamic> decodedResp = json.decode(resp.body);
-      debugPrint(decodedResp.toString());
+
       for (dynamic day in decodedResp) {
         chartData.add(Candle.fromJson(day));
       }
+      return chartData;
+    } catch (e) {
+      throw Exception("Binance Graph Exception:$e");
+    }
+  }
 
+  Future<List<CandleData>> fetchChartforLib(
+      String coinSymbol, String interval) async {
+    try {
+      List<CandleData> chartData = <CandleData>[];
+      debugPrint("${coinSymbol.toUpperCase()}USDT interval: $interval");
+      Uri request = Uri.parse(
+          "https://api.binance.com/api/v3/klines?symbol=$coinSymbol&interval=$interval");
+
+      final resp = await http.get(request);
+
+      List<dynamic> decodedResp = json.decode(resp.body);
+
+      for (dynamic day in decodedResp) {
+        Candle c = (Candle.fromJson(day));
+        CandleData c2 = CandleData(
+            timestamp: c.dt!.millisecondsSinceEpoch,
+            open: c.open,
+            close: c.close,
+            volume: c.volume,
+            high: c.high,
+            low: c.low);
+        chartData.add(c2);
+      }
       return chartData;
     } catch (e) {
       throw Exception("Binance Graph Exception:$e");

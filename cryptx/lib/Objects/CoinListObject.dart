@@ -6,7 +6,13 @@ import 'API.dart';
 import 'coin.dart';
 
 class CoinListObject {
-  static Coin tether = Coin(name: "Tether", symbol: "USDT", current_price: 1);
+  static Coin tether = Coin(
+    name: "Tether",
+    symbol: "USDT",
+    current_price: 1,
+    image:
+        "https://assets.coingecko.com/coins/images/325/small/Tether.png?1668148663",
+  );
   static late Map<String, Coin> coinMap;
   static late String binanceCoinFetch;
 

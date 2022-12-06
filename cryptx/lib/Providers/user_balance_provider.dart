@@ -9,19 +9,17 @@ import 'coinlist_provider.dart';
 
 final userBalanceProvider = StateProvider<num?>(
   (ref) {
+    ref.watch(coinMapProvider);
     num balance = 0;
     AppUser? user = CurrentUser.user!;
     var userCoins = user.coins;
-    Map<String, Coin> cl = CoinListObject.coinMap;
-
-    if (cl.isNotEmpty) {
-      for (Coin c in cl.values) {
-        if (userCoins!.containsKey(c.symbol)) {
-          balance += c.current_price! * userCoins[c.symbol];
-        }
+    balance += userCoins!["USDT"] ?? 0;
+    for (String symbol in userCoins.keys) {
+      if (symbol != "USDT") {
+        balance += CoinListObject.coinMap["${symbol}USDT"]!.current_price! *
+            userCoins[symbol];
       }
     }
-
     return balance; // 16537.061
   },
 );

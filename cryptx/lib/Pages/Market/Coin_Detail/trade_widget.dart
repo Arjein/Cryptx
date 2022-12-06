@@ -1,10 +1,11 @@
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/Trade_Operations/trade_op.dart';
 import 'package:flutter/material.dart';
 
 class TradeWidget extends StatelessWidget {
-  const TradeWidget({super.key});
-
+  const TradeWidget({super.key, required this.coinSymbol});
+  final String coinSymbol;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -12,6 +13,9 @@ class TradeWidget extends StatelessWidget {
       child: Column(
         children: [
           const TabBar(
+            labelColor: AppColors.lightBlue,
+            indicatorColor: AppColors.lightBlue,
+            unselectedLabelColor: AppColors.obsidian_invert,
             tabs: [
               Tab(
                 text: "Buy",
@@ -23,14 +27,16 @@ class TradeWidget extends StatelessWidget {
           ),
           SizedBox(
             height: UserDevice.getDeviceHeight(context) * 25 / 100,
-            child: const TabBarView(
-              physics: NeverScrollableScrollPhysics(),
+            child: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 TradeOperationWidget(
+                  coinSymbol: coinSymbol,
                   text: "Buy",
                 ),
                 TradeOperationWidget(
                   text: "Sell",
+                  coinSymbol: coinSymbol,
                 ),
               ],
             ),

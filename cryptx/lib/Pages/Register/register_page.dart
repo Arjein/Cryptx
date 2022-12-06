@@ -74,7 +74,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () async {
                     if (validateForm(_registerFormKey, context)) {
                       AppUser newUser = AppUser(_username!, _email!, _password!,
-                          <String, dynamic>{"tether": 100});
+                          <String, dynamic>{"USDT": 1000});
                       if (await registerUser(newUser)) {
                         Navigator.of(context).push(
                           MaterialPageRoute(

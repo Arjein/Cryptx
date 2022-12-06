@@ -26,7 +26,6 @@ class CoinListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     query = ref.watch(queryProvider);
     ref.watch(coinMapProvider);
-    debugPrint("Builded");
     return Scaffold(
       appBar: AppBar(
         title: const Text("C R Y P T X"),

@@ -32,9 +32,9 @@ class AppWallet extends StatelessWidget {
         ),
         body: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             WalletWidget(),
-            const Portfolio(),
+            Portfolio(),
           ],
         ),
       ),

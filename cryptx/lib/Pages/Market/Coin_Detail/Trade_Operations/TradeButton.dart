@@ -18,15 +18,17 @@ class TradeButton extends StatefulWidget {
   final Coin coin;
   final Color color;
   final num amount;
+
   @override
   State<TradeButton> createState() => _TradeButtonState();
 }
 
 class _TradeButtonState extends State<TradeButton> {
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     AppUser user = CurrentUser.user!;
-    num userbalance = user.coins!["tether"] ?? 0;
+    num userbalance = user.coins!["USDT"] ?? 0;
     num totalCost = widget.coin.current_price! * widget.amount;
     num userTotalCoins = user.coins![widget.coin.symbol] ?? 0;
     debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
@@ -44,7 +46,7 @@ class _TradeButtonState extends State<TradeButton> {
                   user.coins![widget.coin.symbol]! + widget.amount;
             }
             debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
-            user.coins!["tether"] -= totalCost;
+            user.coins!["USDT"] -= totalCost;
 
             await UserSecureStorage.setUserCoins(user);
             debugPrint(user.coins.toString());
@@ -57,8 +59,7 @@ class _TradeButtonState extends State<TradeButton> {
             user.coins![widget.coin.symbol] -= widget.amount;
             debugPrint("İslem oldu");
             num earnedUSDT = widget.coin.current_price! * (widget.amount);
-
-            user.coins!["tether"] += earnedUSDT;
+            user.coins!["USDT"] += earnedUSDT;
           } else {
             debugPrint(user.toString());
             debugPrint("Not enough coins");

@@ -19,6 +19,10 @@ class Portfolio extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          UserDevice.addVerticalSpace(context, 1),
+          const Text("USDT"),
+          PortfolioCoinTile(coin: CoinListObject.tether),
+          UserDevice.addVerticalSpace(context, 1),
           const Text(
             "Crypto Assets",
           ),
@@ -49,9 +53,12 @@ class PortfolioCoinList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Map<String,Coin> cl = CoinListObject.coinMap;
+    ref.watch(coinMapProvider);
+
+    Map<String, Coin> cl = CoinListObject.coinMap;
     var userCoins = CurrentUser.user!.coins!; // Get the Id's of coins.
     List<Coin> userwallet = [];
+    debugPrint(userCoins.toString());
     if (cl.isNotEmpty) {
       for (Coin c in cl.values) {
         if (userCoins.containsKey(c.symbol)) {
