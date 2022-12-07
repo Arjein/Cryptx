@@ -23,7 +23,7 @@ class Portfolio extends StatelessWidget {
           const PortfolioTether(),
           UserDevice.addVerticalSpace(context, 2),
           Text(
-            "Crypto Assets",
+            "Currencies",
             style: Theme.of(context)
                 .textTheme
                 .headline6!

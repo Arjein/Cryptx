@@ -1,5 +1,6 @@
 import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/app_colors.dart';
+import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Pages/Login/login_form.dart';
 import 'package:cryptx/Pages/Register/register_page.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +16,17 @@ class Login_Screen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            LoginForm(loginFormKey: _loginFormKey),
+            UserDevice.addVerticalSpace(context, 12),
+            Image.asset("assets/images/logo.png"),
+            UserDevice.addVerticalSpace(context, 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: LoginForm(loginFormKey: _loginFormKey),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don't have an account? "),
+                const Text("Not a Member? "),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).push(
@@ -30,7 +37,7 @@ class Login_Screen extends StatelessWidget {
                   },
                   child: const Text(
                     "Sign-up!",
-                    style: TextStyle(color: AppColors.orange),
+                    style: TextStyle(color: AppColors.lightBlue),
                   ),
                 ),
               ],

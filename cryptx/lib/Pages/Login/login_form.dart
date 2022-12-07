@@ -1,4 +1,5 @@
 import 'package:cryptx/Constants/Constants.dart';
+import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_field.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_validator.dart';
@@ -73,6 +74,7 @@ class _LoginFormState extends State<LoginForm> {
           OutlinedButton(
               style: OutlinedButton.styleFrom(
                 shape: StadiumBorder(),
+                foregroundColor: AppColors.orange,
               ),
               onPressed: () async {
                 if (validateForm(widget.loginFormKey, context)) {
