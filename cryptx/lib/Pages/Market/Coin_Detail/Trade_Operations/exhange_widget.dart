@@ -1,11 +1,12 @@
+import 'package:cryptx/Constants/app_colors.dart';
+import 'package:cryptx/Constants/current_user.dart';
+import 'package:cryptx/Objects/CoinListObject.dart';
 import 'package:cryptx/Objects/coin.dart';
-import 'package:cryptx/Providers/basic_providers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:keyboard_actions/keyboard_actions.dart';
+import 'dart:math';
 import 'TradeButton.dart';
 
-// TODO Coin hesaplamalarını hallet. CoinGecko verileri USD olarak alıyormuş USDT olarak değil...!
 class ExchangeWidget extends StatefulWidget {
   const ExchangeWidget(
       {super.key,
@@ -46,6 +47,7 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
   }
 
   _calculateCoinValue() {
+    // Calculates the Coin value based on input USDT.
     if (usdFocus.hasFocus) {
       coinTextController.clear();
       if (usdtTextController.text.isNotEmpty &&
@@ -56,13 +58,13 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
               .toStringAsFixed(12);
 
           amount = double.parse(coinTextController.text);
-          debugPrint("Amount: $amount");
         });
       }
     }
   }
 
   _calculateUSDTValue() {
+    // Calculates the USDT value based on input Coin.
     if (coinFocus.hasFocus) {
       usdtTextController.clear();
       if (coinTextController.text.isNotEmpty &&
@@ -71,7 +73,7 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
           usdtTextController.text = (double.parse(coinTextController.text) *
                   (widget.coin.current_price! / widget.tether.current_price!))
               .toStringAsFixed(6);
-          debugPrint("Amount: $amount");
+
           amount = double.parse(coinTextController.text);
         });
       }
@@ -80,48 +82,25 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Builded");
     if (usdFocus.hasFocus) {
       _calculateCoinValue();
     }
     if (coinFocus.hasFocus) {
       _calculateUSDTValue();
     }
-    return ListView(
-      physics: const NeverScrollableScrollPhysics(),
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: TextField(
-            focusNode: usdFocus,
-            decoration: InputDecoration(
-              icon: SizedBox(
-                  height: 30,
-                  child: Image.network(
-                      "https://assets.coingecko.com/coins/images/325/small/Tether.png?1668148663")),
-              labelText: "USDT",
-              border: InputBorder.none,
-            ),
-            controller: usdtTextController,
-            autocorrect: false,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          ),
+        AmountField(
+          focus: usdFocus,
+          textController: usdtTextController,
+          coinImage: CoinListObject.tether.image!,
+          symbol: CoinListObject.tether.symbol,
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: TextField(
-            focusNode: coinFocus,
-            decoration: InputDecoration(
-              icon: SizedBox(
-                  height: 30, child: Image.network(widget.coin.image!)),
-              labelText: widget.coin.symbol.toUpperCase(),
-              border: InputBorder.none,
-            ),
-            controller: coinTextController,
-            autocorrect: false,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          ),
-        ),
+        AmountField(
+            focus: coinFocus,
+            textController: coinTextController,
+            coinImage: widget.coin.image!,
+            symbol: widget.coin.symbol),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: TradeButton(
@@ -132,6 +111,99 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class AmountField extends StatelessWidget {
+  const AmountField({
+    Key? key,
+    required this.focus,
+    required this.textController,
+    required this.coinImage,
+    required this.symbol,
+  }) : super(key: key);
+
+  final FocusNode focus;
+  final TextEditingController textController;
+  final String coinImage;
+  final String symbol;
+
+  KeyboardActionsConfig _buildConfig() {
+    return KeyboardActionsConfig(
+        keyboardActionsPlatform: KeyboardActionsPlatform.ALL,
+        keyboardBarColor: AppColors.obsidian_darker.withOpacity(0.9),
+        defaultDoneWidget: const Text(
+          "Done",
+          style: TextStyle(
+            color: AppColors.orange,
+          ),
+        ),
+        actions: [
+          KeyboardActionsItem(
+            focusNode: focus,
+            displayDoneButton: true,
+            displayArrows: false,
+          )
+        ]);
+  }
+
+  String _calculateUserTotalAmount(String symbol, int wantedDigits) {
+    double? totalAmount = CurrentUser.user!.coins![symbol];
+    String result = "0.00";
+    if (totalAmount != null) {
+      double fraction =
+          (totalAmount % 1 * pow(10, wantedDigits)).floorToDouble() /
+              pow(10, wantedDigits);
+      result = (totalAmount.truncate() + fraction).toStringAsFixed(2);
+    }
+    return result;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String userTotalCoinAmount = _calculateUserTotalAmount(symbol, 2);
+    return Expanded(
+      child: KeyboardActions(
+        disableScroll: true,
+        tapOutsideBehavior: TapOutsideBehavior.translucentDismiss,
+        config: _buildConfig(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  focusNode: focus,
+                  decoration: InputDecoration(
+                    icon: SizedBox(height: 30, child: Image.network(coinImage)),
+                    labelText: symbol.toUpperCase(),
+                    border: InputBorder.none,
+                  ),
+                  controller: textController,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                ),
+              ),
+              Text(
+                userTotalCoinAmount,
+                style: TextStyle(
+                    color: AppColors.obsidian_invert.withOpacity(0.6)),
+              ),
+              IconButton(
+                icon: Icon(Icons.add_box_outlined,
+                    color: AppColors.obsidian_invert.withOpacity(0.8)),
+                onPressed: () {
+                  textController.text = userTotalCoinAmount;
+                  focus.requestFocus();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

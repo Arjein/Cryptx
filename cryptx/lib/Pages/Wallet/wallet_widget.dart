@@ -1,7 +1,6 @@
 import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
-import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Providers/user_balance_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,7 +14,7 @@ class WalletWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
-      height: UserDevice.getDeviceHeight(context) * 0.19,
+      height: CurrentUser.deviceHeight! * 0.19,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: Colors.transparent,
@@ -79,7 +78,6 @@ class BalanceWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double? _currentBalance = ref.watch(userBalanceProvider);
-    debugPrint("Rebuild Wallet");
     return Text(
         style: Theme.of(context).textTheme.headline6,
         Constants.appPriceFormat(_currentBalance!));

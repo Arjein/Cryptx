@@ -1,5 +1,5 @@
 import 'package:cryptx/Constants/app_colors.dart';
-import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Pages/Market/market_page.dart';
 import 'package:cryptx/Pages/Wallet/app_wallet.dart';
@@ -35,6 +35,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    CurrentUser.deviceHeight ??= MediaQuery.of(context).size.height;
+    CurrentUser.deviceWidth ??= MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
         child: IndexedStack(
@@ -43,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: SizedBox(
-        height: UserDevice.getDeviceHeight(context) * 0.11,
+        height: CurrentUser.deviceHeight! * 0.11,
         child: BottomNavigationBar(
           backgroundColor: AppColors.bgColor,
           showUnselectedLabels: false,

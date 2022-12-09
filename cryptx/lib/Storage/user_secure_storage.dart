@@ -10,6 +10,8 @@ class UserSecureStorage {
   static const _keyPassword = "password";
   static const _keyUser = "user";
   static const _keyUsername = "username";
+  static const _deviceHeight = "height";
+  static const _deviceWidth = "width";
 
   static Future<String?> getEmail() async {
     return await _storage.read(key: _keyEmail);

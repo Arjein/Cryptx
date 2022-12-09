@@ -1,4 +1,4 @@
-import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_field.dart';
 import 'package:cryptx/Entry_Widgets/entry_text_form_validator.dart';
 import 'package:cryptx/Firebase/auth.dart';
@@ -76,8 +76,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      minimumSize: Size.fromHeight(
-                          UserDevice.getDeviceHeight(context) * 0.05),
+                      minimumSize:
+                          Size.fromHeight(CurrentUser.deviceHeight! * 0.05),
                       shape: const StadiumBorder(),
                     ),
                     onPressed: () async {

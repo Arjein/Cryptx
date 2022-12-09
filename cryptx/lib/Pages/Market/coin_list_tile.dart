@@ -1,6 +1,6 @@
 import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/app_colors.dart';
-import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_chart.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/coin_detail.dart';
@@ -24,6 +24,8 @@ class CoinListTile extends StatelessWidget {
         )),
         child: InkWell(
           onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
+
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: ((context) => CoinDetail(
@@ -35,10 +37,10 @@ class CoinListTile extends StatelessWidget {
           child: ListTile(
             minLeadingWidth: 0,
             minVerticalPadding: 0,
-            horizontalTitleGap: UserDevice.getDeviceWidth(context) * 0.04,
+            horizontalTitleGap: CurrentUser.deviceWidth! * 0.04,
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
             leading: SizedBox(
-              width: UserDevice.getDeviceWidth(context) * 0.1,
+              width: CurrentUser.deviceWidth! * 0.1,
               child: Image.network(coin.image!),
             ),
             title: Row(

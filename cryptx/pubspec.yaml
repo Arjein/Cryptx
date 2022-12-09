@@ -50,6 +50,7 @@ dependencies:
   flutter_spinkit: ^5.1.0
   intl: ^0.17.0
   interactive_chart: ^0.3.4
+  keyboard_actions: ^4.1.0
 
 dev_dependencies:
   flutter_test:

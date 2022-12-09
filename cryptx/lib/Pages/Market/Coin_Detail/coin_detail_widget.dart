@@ -1,6 +1,6 @@
 import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/app_colors.dart';
-import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Providers/coinlist_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,74 +18,69 @@ class CoinDetailWidget extends ConsumerWidget {
       child: coin != null
           ? Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: UserDevice.getDeviceWidth(context) * 0.05),
+                  horizontal: CurrentUser.deviceWidth! * 0.05),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        coin.symbol,
+                        coin.name,
                         style: Theme.of(context)
                             .textTheme
-                            .headline6!
+                            .headline5!
                             .copyWith(color: AppColors.obsidian_invert),
                       ),
-                      UserDevice.addHorizontalSpace(context, 1),
+                      CurrentUser.addHorizontalSpace(2),
                       SizedBox(
                         height: 33,
                         child: Image.network(coin.image!),
                       ),
                     ],
                   ),
-                  UserDevice.addVerticalSpace(context, 1),
-                  Text(
-                    coin.name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(color: AppColors.obsidian_invert),
-                  ),
-                  UserDevice.addVerticalSpace(context, 1),
-                  Text(
-                    Constants.appPriceFormat(coin.current_price!).toString(),
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  UserDevice.addVerticalSpace(context, 1),
-                  RichText(
-                    text: TextSpan(
-                      style: TextStyle(
-                        color: coin.price_change_percentage_24h! > 0
-                            ? Colors.green.shade400
-                            : Colors.red.shade400,
+                  CurrentUser.addVerticalSpace(1),
+                  Row(
+                    children: [
+                      Text(
+                        Constants.appPriceFormat(coin.current_price!)
+                            .toString(),
+                        style: Theme.of(context).textTheme.headline6,
                       ),
-                      children: [
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: Icon(
-                            coin.price_change_percentage_24h! > 0
-                                ? Icons.trending_up_rounded
-                                : Icons.trending_down_rounded,
-                            color: coin.price_change_percentage_24h! > 0
-                                ? Colors.green
-                                : Colors.red,
-                          ),
-                        ),
-                        const WidgetSpan(
-                            child: SizedBox(
-                          width: 3,
-                        )),
-                        TextSpan(
-                            text: coin.price_change! > 0
-                                ? Constants.appPriceFormat(coin.price_change!)
-                                : "-\$${coin.price_change!.toString().substring(1)}"),
-                        TextSpan(
-                          text:
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(
+                              coin.price_change_percentage_24h! > 0
+                                  ? Icons.trending_up_rounded
+                                  : Icons.trending_down_rounded,
+                              color: coin.price_change_percentage_24h! > 0
+                                  ? Colors.green
+                                  : Colors.red,
+                            ),
+                            Text(
+                              coin.price_change! > 0
+                                  ? Constants.appPriceFormat(coin.price_change!)
+                                  : "-\$${coin.price_change!.toString().substring(1)}",
+                              style: TextStyle(
+                                color: coin.price_change_percentage_24h! > 0
+                                    ? Colors.green.shade400
+                                    : Colors.red.shade400,
+                              ),
+                            ),
+                            Text(
                               " (${coin.price_change_percentage_24h!.toStringAsFixed(2)}%)",
+                              style: TextStyle(
+                                color: coin.price_change_percentage_24h! > 0
+                                    ? Colors.green.shade400
+                                    : Colors.red.shade400,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),

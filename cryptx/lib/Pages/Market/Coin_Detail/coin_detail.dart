@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:cryptx/Constants/Constants.dart';
 import 'package:cryptx/Constants/app_colors.dart';
-import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Objects/API.dart';
 import 'package:cryptx/Objects/CoinListObject.dart';
 import 'package:cryptx/Objects/coin.dart';
@@ -26,6 +26,7 @@ class CoinDetail extends StatefulWidget {
 class _CoinDetailState extends State<CoinDetail> {
   late String interval;
   int selected = 0;
+
   @override
   void initState() {
     super.initState();
@@ -53,13 +54,15 @@ class _CoinDetailState extends State<CoinDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TradeWidget(coinSymbol: widget.coin.symbol_binance!),
+            CurrentUser.addVerticalSpace(3),
             CoinDetailWidget(coin: widget.coin),
-            UserDevice.addVerticalSpace(context, 1),
+            CurrentUser.addVerticalSpace(1.2),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               child: Center(
                 child: SizedBox(
-                  height: UserDevice.getDeviceHeight(context) * 0.30,
+                  height: CurrentUser.deviceHeight! * 0.30,
                   child: CoinChart(
                       coinSymbol: widget.coin.symbol_binance!,
                       interval: interval),
@@ -141,7 +144,6 @@ class _CoinDetailState extends State<CoinDetail> {
                 ),
               ],
             ),
-            TradeWidget(coinSymbol: widget.coin.symbol_binance!)
           ],
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:cryptx/Constants/app_colors.dart';
-import 'package:cryptx/Constants/device_options.dart';
+import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Pages/Market/Coin_Detail/Trade_Operations/trade_op.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class TradeWidget extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: UserDevice.getDeviceHeight(context) * 25 / 100,
+            height: CurrentUser.deviceHeight! * 0.25,
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               children: [

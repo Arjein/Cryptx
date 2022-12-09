@@ -13,8 +13,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:web_socket_channel/io.dart';
 
-//TODO PROVIDER
-
 class CoinListPage extends ConsumerWidget {
   CoinListPage({super.key});
 
@@ -26,6 +24,7 @@ class CoinListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     query = ref.watch(queryProvider);
     ref.watch(coinMapProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("C R Y P T X"),
@@ -49,6 +48,8 @@ class CoinListPage extends ConsumerWidget {
                 hintText: "Search Coin",
                 border: InputBorder.none,
               ),
+              keyboardType: TextInputType.multiline,
+              autocorrect: false,
               onChanged: (value) {
                 ref
                     .read(queryProvider.notifier)
@@ -77,9 +78,10 @@ class CoinListPage extends ConsumerWidget {
     final List<Coin> coins =
         CoinListObject.coinMap.values.toList().where((coin) {
       final nameLower = coin.name.toLowerCase();
+      final symbolLower = coin.symbol.toLowerCase();
       final qLower = query.toLowerCase();
 
-      return nameLower.contains(qLower);
+      return nameLower.contains(qLower) || symbolLower.contains(qLower);
     }).toList();
     queryList = coins;
   }

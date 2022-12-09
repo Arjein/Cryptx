@@ -16,9 +16,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  var email = await UserSecureStorage.getEmail();
-  var password = await UserSecureStorage.getPassword();
-  bool isLogged = await authUser(email!, password);
+
+  String? email = await UserSecureStorage.getEmail();
+  String? password = await UserSecureStorage.getPassword();
+  bool isLogged = await authUser(email, password);
   await CoinListObject().initCoinList();
   AppUser? usr;
   if (isLogged) {
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
   AppUser? user;
   @override
   Widget build(BuildContext context) {
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Cryptx',

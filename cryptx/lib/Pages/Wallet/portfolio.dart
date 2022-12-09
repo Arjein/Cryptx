@@ -1,6 +1,5 @@
 import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
-import 'package:cryptx/Constants/device_options.dart';
 import 'package:cryptx/Objects/CoinListObject.dart';
 import 'package:cryptx/Objects/coin.dart';
 import 'package:cryptx/Pages/Wallet/portfolio_coin_tile.dart';
@@ -19,9 +18,9 @@ class Portfolio extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UserDevice.addVerticalSpace(context, 1),
+          CurrentUser.addVerticalSpace(1),
           const PortfolioTether(),
-          UserDevice.addVerticalSpace(context, 2),
+          CurrentUser.addVerticalSpace(2),
           Text(
             "Currencies",
             style: Theme.of(context)
@@ -29,10 +28,10 @@ class Portfolio extends StatelessWidget {
                 .headline6!
                 .copyWith(color: AppColors.lightBlue),
           ),
-          UserDevice.addVerticalSpace(context, 1),
+          CurrentUser.addVerticalSpace(1),
           ConstrainedBox(
-            constraints: BoxConstraints(
-                maxHeight: UserDevice.getDeviceHeight(context) * 43 / 100),
+            constraints:
+                BoxConstraints(maxHeight: CurrentUser.deviceHeight! * 0.43),
             child: const PortfolioCoinList(),
           ),
         ],

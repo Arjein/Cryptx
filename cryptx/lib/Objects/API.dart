@@ -36,7 +36,8 @@ class API {
   Future<List<Candle>> fetchChart(String coinSymbol, String interval) async {
     try {
       List<Candle> chartData = <Candle>[];
-      debugPrint("${coinSymbol.toUpperCase()}USDT interval: $interval");
+      debugPrint("${coinSymbol.toUpperCase()} interval: $interval");
+      
       Uri request = Uri.parse(
           "https://api.binance.com/api/v3/klines?symbol=$coinSymbol&interval=$interval");
 
@@ -58,6 +59,7 @@ class API {
     try {
       List<CandleData> chartData = <CandleData>[];
       debugPrint("${coinSymbol.toUpperCase()}USDT interval: $interval");
+      debugPrint("API REQUEST");
       Uri request = Uri.parse(
           "https://api.binance.com/api/v3/klines?symbol=$coinSymbol&interval=$interval");
 

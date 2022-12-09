@@ -32,11 +32,13 @@ Future<bool> registerUser(AppUser user) async {
 Future<bool> authUser(String? email, String? password) async {
   // Login olurken kullanıcı olup olmadığını kontrol et
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  if (email == null || password == null) {
+    return false;
+  }
   try {
-    var bytes = utf8.encode(password!);
+    var bytes = utf8.encode(password);
     var hash = sha256.convert(bytes).toString();
-    await _auth.signInWithEmailAndPassword(email: email!, password: hash);
+    await _auth.signInWithEmailAndPassword(email: email, password: hash);
     await Future.delayed(loginTime);
     UserSecureStorage.setFirebaseUID(_auth.currentUser!.uid);
     CurrentUser.firebaseUser = _auth.currentUser;
