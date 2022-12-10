@@ -34,62 +34,56 @@ class _TradeButtonState extends State<TradeButton> {
     num totalCost = widget.coin.current_price! * widget.amount;
     num userTotalCoins = user.coins![widget.coin.symbol] ?? 0;
     return _isLoading != true
-        ? SizedBox(
-            width: CurrentUser.deviceWidth! * 0.95,
-            child: OutlinedButton(
-              onPressed: () async {
-                setState(() {
-                  _isLoading = true;
-                });
+        ? OutlinedButton(
+            onPressed: () async {
+              setState(() {
+                _isLoading = true;
+              });
 
-                if (widget.text == "Buy") {
-                  debugPrint("Buy pressed!");
-                  debugPrint(
-                      "User Balance: $userbalance\nTotalCost: $totalCost");
-                  if (userbalance >= totalCost) {
-                    // If Balance is enough
-                    if (user.coins![widget.coin.symbol] == null) {
-                      user.coins![widget.coin.symbol] = widget.amount;
-                    } else {
-                      user.coins![widget.coin.symbol] =
-                          user.coins![widget.coin.symbol]! + widget.amount;
-                    }
-
-                    user.coins!["USDT"] -= totalCost;
-
-                    await UserSecureStorage.setUserCoins(user);
-                    debugPrint(user.coins.toString());
+              if (widget.text == "Buy") {
+                debugPrint("Buy pressed!");
+                debugPrint("User Balance: $userbalance\nTotalCost: $totalCost");
+                if (userbalance >= totalCost) {
+                  // If Balance is enough
+                  if (user.coins![widget.coin.symbol] == null) {
+                    user.coins![widget.coin.symbol] = widget.amount;
                   } else {
-                    debugPrint("Not Enough Balance!");
+                    user.coins![widget.coin.symbol] =
+                        user.coins![widget.coin.symbol]! + widget.amount;
                   }
-                } else if (widget.text == "Sell") {
-                  debugPrint("Sell Pressed1");
-                  if (userTotalCoins >= widget.amount && widget.amount != 0) {
-                    user.coins![widget.coin.symbol] -= widget.amount;
 
-                    num earnedUSDT =
-                        widget.coin.current_price! * (widget.amount);
-                    user.coins!["USDT"] += earnedUSDT;
-                  } else {
-                    debugPrint("Not enough coins");
-                  }
+                  user.coins!["USDT"] -= totalCost;
+
+                  await UserSecureStorage.setUserCoins(user);
+                  debugPrint(user.coins.toString());
+                } else {
+                  debugPrint("Not Enough Balance!");
                 }
-                await Future.delayed(const Duration(seconds: 2));
-                setState(() {
-                  _isLoading = false;
-                });
-              },
-              style: OutlinedButton.styleFrom(
-                shape: const StadiumBorder(),
-                side: const BorderSide(
-                  color: AppColors.obsidian_invert,
-                  width: 0.5,
-                ),
-                backgroundColor: AppColors.obsidian_darker,
-                foregroundColor: widget.color,
+              } else if (widget.text == "Sell") {
+                debugPrint("Sell Pressed1");
+                if (userTotalCoins >= widget.amount && widget.amount != 0) {
+                  user.coins![widget.coin.symbol] -= widget.amount;
+
+                  num earnedUSDT = widget.coin.current_price! * (widget.amount);
+                  user.coins!["USDT"] += earnedUSDT;
+                } else {
+                  debugPrint("Not enough coins");
+                }
+              }
+              await Future.delayed(const Duration(seconds: 2));
+              setState(() {
+                _isLoading = false;
+              });
+            },
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(
+                color: AppColors.obsidian_invert,
+                width: 0.5,
               ),
-              child: Text(widget.text),
+              backgroundColor: AppColors.obsidian,
+              foregroundColor: widget.color,
             ),
+            child: Text(widget.text),
           )
         : SpinKitDoubleBounce(
             color: widget.color,

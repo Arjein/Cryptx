@@ -4,6 +4,9 @@ import 'package:intl/intl.dart';
 
 class Constants {
   static String appPriceFormat(double Price) {
+    if (Price > 0 && Price < 0.001) {
+      return "<0.0001";
+    }
     return "\$${NumberFormat("#,##0.00######", "en_US").format(Price)}";
   }
 

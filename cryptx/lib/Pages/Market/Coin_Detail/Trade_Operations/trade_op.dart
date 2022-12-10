@@ -22,6 +22,7 @@ class TradeOperationWidget extends ConsumerWidget {
       coin: CoinListObject.coinMap[coinSymbol]!,
       text: text,
       tether: CoinListObject.tether,
+      
     );
   }
 }

@@ -26,7 +26,7 @@ class TradeWidget extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: CurrentUser.deviceHeight! * 0.25,
+            height: CurrentUser.deviceHeight! * 0.18,
             child: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               children: [

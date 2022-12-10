@@ -16,7 +16,7 @@ class CoinListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Card(
-        color: Color(0xFF161616),
+        color: AppColors.obsidian,
         shape: const RoundedRectangleBorder(
             side: BorderSide(
           color: AppColors.lightBlue,
@@ -40,16 +40,17 @@ class CoinListTile extends StatelessWidget {
             horizontalTitleGap: CurrentUser.deviceWidth! * 0.04,
             visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
             leading: SizedBox(
-              width: CurrentUser.deviceWidth! * 0.1,
+              width: CurrentUser.deviceWidth! * 0.08,
               child: Image.network(coin.image!),
             ),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(coin.name, style: Constants.defaultTextStyle),
+                Text(coin.name,
+                    style: Constants.defaultTextStyle.copyWith(fontSize: 15)),
                 Text(
                   Constants.appPriceFormat(coin.current_price!),
-                  style: Constants.defaultTextStyle,
+                  style: Constants.defaultTextStyle.copyWith(fontSize: 15),
                 ),
               ],
             ),
@@ -61,9 +62,10 @@ class CoinListTile extends StatelessWidget {
                     ? Text(
                         "${coin.price_change_percentage_24h?.toStringAsFixed(2)}%",
                         style: TextStyle(
-                            color: coin.price_change_percentage_24h! > 0
-                                ? Colors.green.shade400
-                                : Colors.red.shade400),
+                          color: coin.price_change_percentage_24h! > 0
+                              ? Colors.green.shade400
+                              : Colors.red.shade400,
+                        ).copyWith(fontSize: 13),
                       )
                     : const Text("***")
               ],

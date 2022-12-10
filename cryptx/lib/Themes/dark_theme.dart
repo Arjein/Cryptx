@@ -10,7 +10,7 @@ ThemeData appDarkTheme = ThemeData(
     fontFamily: GoogleFonts.comfortaa().fontFamily,
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-            backgroundColor: AppColors.obsidian_darker,
+            backgroundColor: AppColors.obsidian,
             foregroundColor: AppColors.obsidian_invert)),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,

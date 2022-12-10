@@ -60,6 +60,15 @@ class UserSecureStorage {
     }
   }
 
+  static Future<bool> setEmail(String email) async {
+    try {
+      await _storage.write(key: _keyEmail, value: email);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   static Future<AppUser?> getUser() async {
     return AppUser.deserialize(await _storage.read(key: _keyUser));
   }

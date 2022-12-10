@@ -6,6 +6,7 @@ import 'package:cryptx/Firebase/db.dart';
 import 'package:cryptx/Objects/app_user.dart';
 import 'package:cryptx/Pages/Home/home_page.dart';
 import 'package:cryptx/Pages/Login/login_page.dart';
+import 'package:cryptx/Storage/user_secure_storage.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -83,8 +84,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     onPressed: () async {
                       if (validateForm(_registerFormKey, context)) {
                         AppUser newUser = AppUser(_username!, _email!,
-                            _password!, <String, dynamic>{"USDT": 1000});
+                            _password!, <String, dynamic>{"USDT": 1000.0});
                         if (await registerUser(newUser)) {
+                          await UserSecureStorage.setEmail(_email!);
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: ((context) => Login_Screen()),

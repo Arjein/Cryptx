@@ -1,6 +1,7 @@
 import 'package:cryptx/Constants/app_colors.dart';
 import 'package:cryptx/Constants/current_user.dart';
 import 'package:cryptx/Objects/app_user.dart';
+import 'package:cryptx/Pages/Leaderboard/leaderboard_page.dart';
 import 'package:cryptx/Pages/Market/market_page.dart';
 import 'package:cryptx/Pages/Wallet/app_wallet.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       CoinListPage(),
-      AppWallet(),
+      const LeaderBoard(),
+      const AppWallet(),
     ];
 
     super.initState();
@@ -38,24 +40,22 @@ class _HomePageState extends State<HomePage> {
     CurrentUser.deviceHeight ??= MediaQuery.of(context).size.height;
     CurrentUser.deviceWidth ??= MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Center(
-        child: IndexedStack(
-          index: _index,
-          children: _pages,
-        ),
-      ),
+      body: _pages[_index],
       bottomNavigationBar: SizedBox(
         height: CurrentUser.deviceHeight! * 0.11,
         child: BottomNavigationBar(
           backgroundColor: AppColors.bgColor,
-          showUnselectedLabels: false,
           selectedFontSize: 12,
           selectedItemColor: AppColors.orange,
           unselectedItemColor: AppColors.obsidian_invert,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.monetization_on_outlined),
-              label: "Home",
+              icon: Icon(Icons.insert_chart_outlined_outlined),
+              label: "Market",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.leaderboard_rounded),
+              label: "LeaderBoard",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.wallet),
