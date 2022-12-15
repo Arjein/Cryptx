@@ -86,7 +86,8 @@ class _LoginFormState extends State<LoginForm> {
                     if (user != null &&
                         await UserSecureStorage.setUser(
                             user, _passwordController.text)) {
-                      CurrentUser.user = await UserSecureStorage.getUser();
+                      //CurrentUser.user = await UserSecureStorage.getUser();
+                      CurrentUser.user = await readUserfromDB(_email!);
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
                               builder: (context) => const HomePage()),

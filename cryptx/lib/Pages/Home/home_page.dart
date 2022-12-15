@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _pages = [
       CoinListPage(),
-      const LeaderBoard(),
+      LeaderBoard(),
       const AppWallet(),
     ];
 

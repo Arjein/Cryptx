@@ -52,6 +52,8 @@ dependencies:
   interactive_chart: ^0.3.4
   keyboard_actions: ^4.1.0
   webview_flutter: ^3.0.4
+  flutter_inappwebview: ^5.7.2+2
+  js: ^0.6.4
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +81,10 @@ flutter:
     - assets/
     - assets/CoinList.json
     - assets/images/logo.png
+    - assets/tradingview/index.html
+    - assets/tradingview/chart.js
+    - assets/tradingview/chartClass.js
+    - assets/tradingview/node_modules/lightweight-charts/dist/lightweight-charts.standalone.development.js
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

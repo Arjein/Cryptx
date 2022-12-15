@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
   AppUser? user;
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Cryptx',
