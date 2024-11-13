@@ -28,7 +28,7 @@ class CoinList extends StatelessWidget {
                 : Center(
                     child: Text(
                     "Nothing found",
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ))
             : ListView.builder(
                 itemCount: CoinListObject.coinMap.values.length,

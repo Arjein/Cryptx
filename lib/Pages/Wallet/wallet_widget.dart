@@ -70,7 +70,7 @@ class BalanceWidget extends ConsumerWidget {
     double? _currentBalance = ref.watch(userBalanceProvider);
     return Text(
         style:
-            Theme.of(context).textTheme.headline6!.copyWith(letterSpacing: 1),
+            Theme.of(context).textTheme.headlineMedium!.copyWith(letterSpacing: 1),
         Constants.appPriceFormat(_currentBalance!));
   }
 }

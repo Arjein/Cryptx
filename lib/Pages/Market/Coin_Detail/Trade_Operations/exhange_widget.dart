@@ -107,7 +107,7 @@ class _ExchangeWidgetState extends State<ExchangeWidget> {
     return Row(
       children: [
         SizedBox(
-          width: CurrentUser.deviceWidth! * 0.22,
+          width: CurrentUser.deviceWidth! * 0.27,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4.5),
             child: Column(

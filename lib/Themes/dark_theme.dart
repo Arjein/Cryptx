@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData appDarkTheme = ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: AppColors.bgColor,
-    backgroundColor: AppColors.bgColor,
+    
     fontFamily: GoogleFonts.comfortaa().fontFamily,
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(

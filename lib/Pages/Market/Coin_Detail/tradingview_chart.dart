@@ -1,13 +1,9 @@
-import 'dart:convert';
-
 import 'package:cryptx_cs50x/Constants/app_colors.dart';
 import 'package:cryptx_cs50x/Constants/current_user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class TVChart extends StatefulWidget {
   const TVChart({super.key, required this.binanceSymbol});
@@ -45,19 +41,13 @@ class _TVChartState extends State<TVChart> {
           height: CurrentUser.deviceHeight! * 0.5,
           child: InAppWebView(
             initialFile: "assets/tradingview/index.html",
-            initialOptions: InAppWebViewGroupOptions(
-              crossPlatform: InAppWebViewOptions(
-                javaScriptEnabled: true,
-                transparentBackground: true,
-                supportZoom: true,
-                clearCache: true,
-                disableVerticalScroll: true,
-                disableHorizontalScroll: true,
-              ),
-              ios: IOSInAppWebViewOptions(
-                disallowOverScroll: true,
-                alwaysBounceVertical: false,
-              ),
+            initialSettings: InAppWebViewSettings(
+              javaScriptEnabled: true,
+              transparentBackground: true,
+              supportZoom: true,
+              clearCache: true,
+              disableVerticalScroll: true,
+              disableHorizontalScroll: true,
             ),
             gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
               Factory<VerticalDragGestureRecognizer>(

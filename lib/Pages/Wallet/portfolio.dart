@@ -25,8 +25,7 @@ class Portfolio extends StatelessWidget {
             "Currencies",
             style: Theme.of(context)
                 .textTheme
-                .headline6!
-                .copyWith(color: AppColors.lightBlue),
+                .headlineSmall!.copyWith(color: AppColors.lightBlue),
           ),
           CurrentUser.addVerticalSpace(1),
           ConstrainedBox(

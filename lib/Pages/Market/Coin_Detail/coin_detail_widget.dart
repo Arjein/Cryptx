@@ -13,7 +13,7 @@ class CoinDetailWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(coinMapProvider);
-    
+
     return Container(
       alignment: Alignment.center,
       child: coin != null
@@ -29,7 +29,7 @@ class CoinDetailWidget extends ConsumerWidget {
                         coin.name,
                         style: Theme.of(context)
                             .textTheme
-                            .headline5!
+                            .headlineSmall!
                             .copyWith(color: AppColors.obsidian_invert),
                       ),
                       CurrentUser.addHorizontalSpace(2),
@@ -45,7 +45,7 @@ class CoinDetailWidget extends ConsumerWidget {
                       Text(
                         Constants.appPriceFormat(coin.current_price!)
                             .toString(),
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       Expanded(
                         child: Row(
