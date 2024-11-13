@@ -11,9 +11,7 @@ Cryptx is a mobile application designed to simulate cryptocurrency trading, allo
 ## Technologies Used
 
 - **Flutter**: Used as the main framework for building the application, ensuring a smooth and cross-platform experience.
-- **Dart (47.0%)**: The primary programming language used with Flutter for app development.
-- **C++ (18.7%)**: Utilized for performance-critical components.
-- **CMake (16.1%)**: Employed for managing the build process.
+- **Dart**: The primary programming language used with Flutter for app development.
 
 ## Getting Started
 
@@ -43,23 +41,30 @@ Cryptx is a mobile application designed to simulate cryptocurrency trading, allo
 
 ## Screenshots
 
-### Main Market Screen
+# Screenshots
 
-![Market Screen](simulator_screenshots/market.png)
+# Screenshots
 
-
-### Buy Screen
-
-![Buy Screen](simulator_screenshots/buy.png)
-
-
-### Detailed Chart View
-
-![Chart View](simulator_screenshots/chart_options.png)
-
-### Wallet Screen
-
-![Wallet Screen](simulator_screenshots/portfolio.png)
+<p align="center">
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
+            <h4>Market Screen</h4>
+            <img src="simulator_screenshots/market.png" alt="Market Screen" width="100%">
+        </div>
+        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
+            <h4>Search Screen</h4>
+            <img src="simulator_screenshots/portfolio.png" alt="Search Screen" width="100%">
+        </div>
+        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
+            <h4>Buy Screen</h4>
+            <img src="simulator_screenshots/buy.png" alt="Buy Screen" width="100%">
+        </div>
+        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
+            <h4>Sell Screen</h4>
+            <img src="simulator_screenshots/chart_options.png" alt="Sell Screen" width="100%">
+        </div>
+    </div>
+</p>
 
 ## Contributing
 
