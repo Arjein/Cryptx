@@ -10,7 +10,8 @@ Cryptx is a mobile application designed to simulate cryptocurrency trading, allo
 
 ## Technologies Used
 
-- **Dart (47.0%)**: The primary programming language for the application.
+- **Flutter**: Used as the main framework for building the application, ensuring a smooth and cross-platform experience.
+- **Dart (47.0%)**: The primary programming language used with Flutter for app development.
 - **C++ (18.7%)**: Utilized for performance-critical components.
 - **CMake (16.1%)**: Employed for managing the build process.
 
@@ -19,13 +20,13 @@ Cryptx is a mobile application designed to simulate cryptocurrency trading, allo
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/Arjein/cryptx_cs50.git
+   git clone https://github.com/Arjein/Cryptx.git
    ```
 
 2. **Navigate to the Project Directory:**
 
    ```bash
-   cd cryptx_cs50
+   cd Cryptx
    ```
 
 3. **Install Dependencies:**
@@ -40,6 +41,26 @@ Cryptx is a mobile application designed to simulate cryptocurrency trading, allo
    flutter run
    ```
 
+## Screenshots
+
+### Main Market Screen
+
+![Market Screen](simulator_screenshots/market.png)
+
+
+### Buy Screen
+
+![Buy Screen](simulator_screenshots/buy.png)
+
+
+### Detailed Chart View
+
+![Chart View](simulator_screenshots/chart_options.png)
+
+### Wallet Screen
+
+![Wallet Screen](simulator_screenshots/portfolio.png)
+
 ## Contributing
 
 Contributions are welcome! If you have suggestions for new features or improvements, please open an issue or submit a pull request.
@@ -51,3 +72,5 @@ This project is licensed under the MIT License. For more details, refer to the [
 ## Acknowledgments
 
 Special thanks to the CS50 course instructors and community for their guidance and support throughout the development of this project.
+
+For more information, visit the [Cryptx GitHub Repository](https://github.com/Arjein/Cryptx).
