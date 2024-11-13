@@ -41,30 +41,16 @@ Cryptx is a mobile application designed to simulate cryptocurrency trading, allo
 
 ## Screenshots
 
-# Screenshots
+<div align="center">
 
-# Screenshots
+| Market Screen | Buy Screen |
+|:-------------------------:|:-------------------------:|
+| <img src="simulator_screenshots/market.png" alt="Market Screen" width="250"> | <img src="simulator_screenshots/buy.png" alt="Search Screen" width="250">|
 
-<p align="center">
-    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
-            <h4>Market Screen</h4>
-            <img src="simulator_screenshots/market.png" alt="Market Screen" width="100%">
-        </div>
-        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
-            <h4>Search Screen</h4>
-            <img src="simulator_screenshots/portfolio.png" alt="Search Screen" width="100%">
-        </div>
-        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
-            <h4>Buy Screen</h4>
-            <img src="simulator_screenshots/buy.png" alt="Buy Screen" width="100%">
-        </div>
-        <div style="border: 1px solid lightgray; padding: 10px; width: 250px; text-align: center;">
-            <h4>Sell Screen</h4>
-            <img src="simulator_screenshots/chart_options.png" alt="Sell Screen" width="100%">
-        </div>
-    </div>
-</p>
+| Chart View | Portfolio Screen |
+|:-------------------------:|:-------------------------:|
+| <img src="simulator_screenshots/chart_options.png" alt="Chart View" width="250"> | <img src="simulator_screenshots/portfolio.png" alt="Portfolio Screen" width="250"> |
+</div>
 
 ## Contributing
 
